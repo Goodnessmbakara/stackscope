@@ -62,13 +62,6 @@ const Landing = () => {
             Read the Docs
           </button>
         </div>
-
-        <div className="hero-visual-container">
-          <img 
-            src={heroAsset} 
-            alt="StackScope Core Engine" 
-          />
-        </div>
       </section>
 
       {/* Bento Grid Features Section */}
