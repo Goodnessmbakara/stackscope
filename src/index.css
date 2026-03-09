@@ -388,3 +388,92 @@ body {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255,255,255,0.2);
 }
+
+/* Landing Page Footer Polishing */
+.landing-footer {
+  padding: 8rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to bottom, #0A0A0A, #000);
+}
+
+.footer-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  letter-spacing: -0.04em;
+  background: linear-gradient(to bottom, #FFF, #555);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-open-app {
+  background-color: white;
+  color: black !important; /* Ensure black text on white button */
+  padding: 1.25rem 2.5rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0.2, 1);
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn-open-app:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+  background-color: #F8F8F8;
+}
+
+.footer-links {
+  margin-top: 6rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  color: #555;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.footer-links a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #AAA;
+}
+
+/* Extra Polish for API Card */
+.api-card .code-block {
+  background-color: #000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  color: #AAA;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+
+.code-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--lp-teal), #2563EB, var(--lp-teal));
+  background-size: 200% 100%;
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
