@@ -1,5 +1,6 @@
-/* Section 1: Design System - PRD 003 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
 
+/* Section 1: Design System - PRD 003 */
 :root {
   /* Brand & Surface Colours */
   --midnight-navy: #0D1F35;
@@ -39,13 +40,13 @@
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Spacing (8-Point Grid) */
-  --space-05: 4px; /* Icon-to-label gap */
-  --space-1: 8px; /* Component internal padding */
-  --space-2: 16px; /* Stacked elements gap */
-  --space-3: 24px; /* Card internal padding */
-  --space-4: 32px; /* Gap between dashboard cards */
-  --space-6: 48px; /* Page section spacing */
-  --space-8: 64px; /* Hero section padding */
+  --space-05: 4px;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
 
   /* Elevation */
   --shadow-level-1: 0 2px 4px rgba(13,31,53,0.08);
@@ -100,34 +101,11 @@ body {
   line-height: 1.4;
 }
 
-.heading-3 {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.5;
-}
-
 .text-body {
   font-family: var(--font-sans);
   font-weight: 400;
   font-size: 15px;
   line-height: 1.6;
-}
-
-.text-body-small {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--muted);
-}
-
-.text-label {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
 }
 
 .mono-metric {
@@ -139,30 +117,145 @@ body {
   .mono-metric { font-size: 36px; }
 }
 
-.mono-data {
-  font-family: var(--font-mono);
-  font-weight: 400;
-  font-size: 13px;
+/* Landing Page Styling (Fintech/Revolut-inspired) */
+.landing-page {
+  --lp-bg: #0A0A0A;
+  --lp-surface: #111111;
+  --lp-teal: #0E7C9B;
+  --lp-gray: #A0A0A0;
+  
+  min-height: 100vh;
+  background-color: var(--lp-bg);
+  color: white;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
 }
 
-.text-caption {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  font-size: 11px;
-  color: var(--muted);
+.landing-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  background-color: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Utilities */
-.text-muted {
-  color: var(--muted);
+.btn-launch {
+  background-color: white;
+  color: black;
+  padding: 0.6rem 1.25rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-/* Layout Classes */
-.container {
-  max-width: 1280px;
+.hero-section {
+  padding: 10rem 2rem 5rem;
+  max-width: 80rem;
   margin: 0 auto;
-  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-@media (min-width: 1920px) {
-  .container { max-width: 1280px; }
+
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(to bottom, #fff, #888);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  color: var(--lp-gray);
+  max-width: 44rem;
+  margin-bottom: 2.5rem;
+  font-weight: 300;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--lp-teal);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 10px 30px rgba(14, 124, 155, 0.3);
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+.bento-section {
+  padding: 6rem 2rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 400px;
+  }
+}
+
+.bento-card {
+  background-color: var(--lp-surface);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card.large {
+  grid-column: span 2;
+}
+
+@media (max-width: 767px) {
+  .bento-card.large {
+    grid-column: span 1;
+  }
+}
+
+.landing-footer {
+  padding: 8rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to bottom, var(--lp-bg), black);
 }
