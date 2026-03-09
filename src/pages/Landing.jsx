@@ -80,34 +80,28 @@ const Landing = () => {
           {/* Large Feature Card */}
           <div className="bento-card large">
             <div className="bento-card-content">
-              <div>
-                <BarChart3 size={32} style={{ color: 'var(--accent-teal)', marginBottom: '1rem' }} />
-                <h3>Protocol Growth Tracking</h3>
-                <p>Compare TVL, yields, and active users across ALEX, Zest, Arkadiko, and more in real time.</p>
-              </div>
+              <BarChart3 size={32} style={{ color: 'var(--lp-teal)', marginBottom: '1rem' }} />
+              <h3>Protocol Growth Tracking</h3>
+              <p>Compare TVL, yields, and active users across ALEX, Zest, Arkadiko, and more in real time.</p>
             </div>
             <img 
               src={chartAsset} 
               alt="Growth Chart" 
               className="card-image"
-              style={{ width: '60%', transform: 'translate(10%, 10%)' }}
             />
           </div>
 
           {/* Small Feature Card 1 */}
           <div className="bento-card">
             <div className="bento-card-content">
-              <div>
-                <ShieldCheck size={32} style={{ color: 'white', marginBottom: '1rem' }} />
-                <h3>sBTC Peg Health</h3>
-                <p>Monitor decentralised signers and peg deviation with cryptographic certainty.</p>
-              </div>
+              <ShieldCheck size={32} style={{ color: 'white', marginBottom: '1rem' }} />
+              <h3>sBTC Peg Health</h3>
+              <p>Monitor decentralised signers and peg deviation with cryptographic certainty.</p>
             </div>
             <img 
               src={securityAsset} 
               alt="Security Lock" 
               className="card-image"
-              style={{ width: '80%', transform: 'translate(10%, 20%)' }}
             />
           </div>
 
@@ -120,14 +114,14 @@ const Landing = () => {
 
           {/* Medium Feature Card */}
           <div className="bento-card large api-card">
-            <div className="bento-card-content" style={{ flex: 1 }}>
+            <div className="bento-card-content">
               <h3>Open Data API</h3>
               <p style={{ marginBottom: '1.5rem' }}>Build your own dashboards or feed algorithmic models with our high-throughput REST API.</p>
-              <button style={{ background: 'none', border: 'none', color: 'var(--accent-teal)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <button className="btn-text">
                 View Documentation <ChevronRight size={16} />
               </button>
             </div>
-            <div className="bento-card-content" style={{ flex: 1, padding: '1rem' }}>
+            <div className="bento-card-content" style={{ padding: '1rem' }}>
               <div className="code-block">
                 <div className="code-accent" />
                 <pre style={{ margin: 0 }}>
