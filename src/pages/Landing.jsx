@@ -32,42 +32,44 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <header className="hero-section">
+      <section className="hero-section">
+        <div className="hero-glow" />
+        
         <div className="badge-live">
-          <span className="dot-pulse" />
+          <div className="dot-pulse" />
           Live on Stacks Mainnet
         </div>
         
         <h1 className="hero-title">
-          The Nervous System <br /> for Bitcoin DeFi
+          The Nervous System {"\n"} for Bitcoin DeFi
         </h1>
         
         <p className="hero-subtitle">
           Real-time on-chain analytics, TVL tracking, and sBTC flows for the Stacks ecosystem. Open source and radically transparent.
         </p>
-        
+
         <div className="hero-actions">
           <button 
+            className="btn-hero-primary"
             onClick={() => navigate('/overview')}
-            className="btn-primary"
           >
             Explore Dashboard <ArrowRight size={20} />
           </button>
-          <button className="btn-secondary">
+          <button 
+            className="btn-hero-secondary"
+            onClick={() => window.open('https://docs.stacksendowment.co', '_blank')}
+          >
             Read the Docs
           </button>
         </div>
 
-        {/* Hero 3D Asset Floating */}
-        <div className="hero-image-container">
-          <div className="hero-glow" />
+        <div className="hero-visual-container">
           <img 
             src={heroAsset} 
             alt="StackScope Core Engine" 
-            className="hero-image"
           />
         </div>
-      </header>
+      </section>
 
       {/* Bento Grid Features Section */}
       <section className="bento-section">
