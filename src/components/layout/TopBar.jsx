@@ -51,14 +51,13 @@ const GroupLabels = {
   Metrics: 'text-green-400',
 };
 
-const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
+const TopBar = ({ isMobile, toggleSidebar }) => {
   const [query, setQuery] = useState('');
   const [open, setOpen] = useState(false);
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  const ranges = ['24H', '7D', '30D', '90D', '1Y', 'ALL'];
 
   const results = query.trim().length > 0
     ? SEARCH_INDEX.filter(item =>
@@ -153,8 +152,8 @@ const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
   let flatIdx = 0;
 
   return (
-    <header className="top-bar flex items-center justify-between px-4 md:px-6 bg-bg-surface border-b border-border-muted" style={{ height: isMobile ? '64px' : '72px' }}>
-      <div className="flex items-center flex-1 gap-3 md:gap-6 max-w-full relative">
+    <header className="top-bar flex items-center justify-between px-4 md:px-8 bg-bg-surface border-b border-border-muted" style={{ height: isMobile ? '64px' : '80px' }}>
+      <div className="flex items-center flex-1 gap-4 md:gap-12 max-w-full relative">
         {/* Mobile Menu Trigger */}
         {isMobile && (
           <button 
@@ -251,23 +250,6 @@ const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
           )}
         </div>
 
-        {/* Time Range Selector */}
-        <div className="hidden lg:flex items-center bg-bg-surface-lighter/50 p-1 rounded-xl border border-border-muted">
-          {ranges.map((range) => (
-            <button
-              key={range}
-              onClick={() => setTimeFilter && setTimeFilter(range)}
-              className={`
-                text-[11px] font-bold px-4 py-1.5 rounded-lg transition-all duration-200 cursor-pointer
-                ${timeFilter === range
-                  ? 'bg-primary text-bg-deep shadow-md'
-                  : 'text-muted hover:text-white hover:bg-bg-surface-lighter'}
-              `}
-            >
-              {range}
-            </button>
-          ))}
-        </div>
       </div>
 
       <div className="flex items-center gap-2 md:gap-6 shrink-0">

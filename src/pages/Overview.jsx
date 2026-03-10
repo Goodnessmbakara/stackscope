@@ -125,52 +125,57 @@ const Overview = () => {
   const { tvlData, mintData, devData } = useMemo(() => generateData(timeFilter), [timeFilter]);
 
   return (
-    <div className="flex flex-col gap-4 md:gap-6 pb-4 md:pb-12 w-full animate-fade-in">
-      {/* Header Area */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 md:gap-4 mb-1 md:mb-2">
-        <div>
-          <div className="flex items-center gap-2 mb-2 md:mb-3 flex-wrap">
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
-              <span className="text-[10px] md:text-[11px] font-bold text-success uppercase tracking-[0.15em] md:tracking-[0.2em]">Network Operational</span>
+    <div className="flex flex-col gap-6 md:gap-8 pb-4 md:pb-12 w-full animate-fade-in max-w-[1600px] mx-auto">
+      {/* ── Header Area - Minimalist ────────────────────────────────────────── */}
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-2.5 py-1 bg-success/10 border border-success/20 rounded-full">
+              <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+              <span className="text-[10px] font-bold text-success uppercase tracking-wider">Operational</span>
             </div>
-            <div className="hidden sm:flex items-center gap-2">
-              <div className="w-px h-3 bg-border-muted" />
-              <span className="text-[10px] md:text-[11px] text-muted font-mono">Last updated: 2s ago</span>
+            <div className="h-4 w-[1px] bg-border-muted" />
+            <div className="flex items-center gap-2 text-muted text-[10px] font-mono">
+              <Activity size={12} className="text-primary" />
+              <span>Hiro API + Ortege ETL</span>
             </div>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tighter m-0 bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent leading-tight">
-            Ecosystem Overview
-          </h1>
-          <p className="text-xs md:text-sm text-muted mt-2 m-0 max-w-2xl leading-relaxed">
-            Comprehensive real-time analytics for the Stacks Bitcoin L2 ecosystem. Tracking TVL, sBTC adoption, developer activity, and network health.
-          </p>
-        </div>
-        <div className="flex flex-col gap-2 w-full md:w-auto">
-          <div className="hidden sm:flex items-center gap-2 text-muted text-xs font-mono bg-bg-surface px-3 md:px-4 py-2 rounded-lg border border-border-muted">
-            <Activity size={14} className="text-primary" />
-            <span className="text-[11px] md:text-xs">Live data from Hiro API + Ortege ETL</span>
-          </div>
+          
           <div className="flex items-center gap-2">
-            <button className="text-[11px] md:text-xs font-semibold text-muted hover:text-primary active:text-primary transition-colors px-3 py-2 bg-bg-surface/50 rounded-md border border-border-muted hover:border-primary/30 active:border-primary/30 cursor-pointer min-h-[44px] flex-1 md:flex-none">
-              Export
+            <button className="flex items-center gap-2 px-3 py-1.5 text-[11px] font-bold text-muted hover:text-white transition-colors bg-bg-surface/40 hover:bg-bg-surface border border-border-muted rounded-lg active:scale-95">
+              <span>Export</span>
             </button>
-            <button className="text-[11px] md:text-xs font-semibold text-muted hover:text-primary active:text-primary transition-colors px-3 py-2 bg-bg-surface/50 rounded-md border border-border-muted hover:border-primary/30 active:border-primary/30 cursor-pointer min-h-[44px] flex-1 md:flex-none">
-              Embed
+            <button className="flex items-center gap-2 px-3 py-1.5 text-[11px] font-bold text-muted hover:text-white transition-colors bg-bg-surface/40 hover:bg-bg-surface border border-border-muted rounded-lg active:scale-95">
+              <span>Embed</span>
             </button>
           </div>
+        </div>
+
+        <div>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight m-0 text-white leading-tight">
+            Dashboard
+          </h1>
+          <p className="text-sm text-muted mt-2 m-0 max-w-2xl leading-relaxed opacity-80">
+            Real-time analytics for the Stacks L2 ecosystem. Tracking liquidity, sBTC velocity, and network growth.
+          </p>
         </div>
       </div>
 
-      {/* 1. Hero Stat Row - Bloomberg-style Information Density */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-        <StatCard
-          title="TOTAL TVL"
-          value={stats.tvl}
-          change={stats.tvlChg}
-          isPositive={!stats.tvlChg.startsWith('-')}
-          sparklineData={generateSparkline(30, 150, 170)}
-        />
+      {/* ── Primary Highlights - Bento Grid ─────────────────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* TVL - Featured */}
+        <div className="lg:col-span-2">
+          <StatCard
+            title="TOTAL VALUE LOCKED"
+            value={stats.tvl}
+            change={stats.tvlChg}
+            isPositive={!stats.tvlChg.startsWith('-')}
+            sparklineData={generateSparkline(30, 150, 170)}
+            featured={true}
+          />
+        </div>
+        
+        {/* sBTC Supply */}
         <StatCard
           title="SBTC SUPPLY"
           value={stats.sbtcSupply}
@@ -178,27 +183,8 @@ const Overview = () => {
           isPositive={true}
           sparklineData={generateSparkline(30, 400, 550)}
         />
-        <StatCard
-          title="SBTC HOLDERS"
-          value={stats.holders}
-          change={stats.holdersChg}
-          isPositive={true}
-          sparklineData={generateSparkline(30, 1500, 1900)}
-        />
-        <StatCard
-          title={`ACTIVE ADDRESSES (${timeFilter})`}
-          value={stats.addrs}
-          change={stats.addrsChg}
-          isPositive={!stats.addrsChg.startsWith('-')}
-          sparklineData={generateSparkline(30, 10000, 15000)}
-        />
-        <StatCard
-          title={`CONTRACTS (${timeFilter})`}
-          value={stats.contracts}
-          change={stats.contractsChg}
-          isPositive={true}
-          sparklineData={generateSparkline(10, 30, 80)}
-        />
+
+        {/* Volume */}
         <StatCard
           title={`${timeFilter} VOLUME`}
           value={stats.vol}
@@ -208,165 +194,177 @@ const Overview = () => {
         />
       </div>
 
-      {/* Quick Insights - Bloomberg Style */}
-      <div id="quick-insights" className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl md:rounded-2xl border border-primary/20 p-4 md:p-6 backdrop-blur-md">
-        <div className="flex items-start gap-3 p-3 md:p-0 rounded-lg md:rounded-none hover:bg-white/5 md:hover:bg-transparent transition-colors cursor-pointer active:bg-white/10 md:active:bg-transparent">
-          <div className="w-10 h-10 md:w-8 md:h-8 rounded-lg bg-success/20 border border-success/30 flex items-center justify-center shrink-0">
-            <ArrowUpRight size={18} className="text-success md:w-4 md:h-4" />
+      {/* ── Secondary Insights Row ──────────────────────────────────────────── */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-bg-surface/30 p-2 rounded-2xl border border-border-muted/50 backdrop-blur-sm">
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/[0.03] transition-colors cursor-default">
+          <div className="w-8 h-8 rounded-lg bg-success/10 border border-success/20 flex items-center justify-center shrink-0">
+            <ArrowUpRight size={14} className="text-success" />
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">Top Performer</p>
-            <p className="text-sm font-bold text-white m-0 truncate">StackingDAO +22.1%</p>
-            <p className="text-xs text-muted m-0 mt-1 leading-tight">Leading 7-day TVL growth</p>
-          </div>
-        </div>
-        <div className="flex items-start gap-3 p-3 md:p-0 rounded-lg md:rounded-none hover:bg-white/5 md:hover:bg-transparent transition-colors cursor-pointer active:bg-white/10 md:active:bg-transparent">
-          <div className="w-10 h-10 md:w-8 md:h-8 rounded-lg bg-secondary/20 border border-secondary/30 flex items-center justify-center shrink-0">
-            <Zap size={18} className="text-secondary md:w-4 md:h-4" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">sBTC Momentum</p>
-            <p className="text-sm font-bold text-white m-0 truncate">+12.4% Supply Growth</p>
-            <p className="text-xs text-muted m-0 mt-1 leading-tight">Strong adoption this week</p>
+          <div className="min-w-0">
+            <p className="text-[10px] text-muted font-bold uppercase tracking-wider mb-0.5">Top Protocol</p>
+            <p className="text-xs font-bold text-white truncate">StackingDAO +22.1%</p>
           </div>
         </div>
-        <div className="flex items-start gap-3 p-3 md:p-0 rounded-lg md:rounded-none hover:bg-white/5 md:hover:bg-transparent transition-colors cursor-pointer active:bg-white/10 md:active:bg-transparent">
-          <div className="w-10 h-10 md:w-8 md:h-8 rounded-lg bg-cta/20 border border-cta/30 flex items-center justify-center shrink-0">
-            <Code2 size={18} className="text-cta md:w-4 md:h-4" />
+        
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/[0.03] transition-colors cursor-default">
+          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+            <Zap size={14} className="text-primary" />
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">Developer Activity</p>
-            <p className="text-sm font-bold text-white m-0 truncate">540 Contracts Deployed</p>
-            <p className="text-xs text-muted m-0 mt-1 leading-tight">+8.4% from last week</p>
+          <div className="min-w-0">
+            <p className="text-[10px] text-muted font-bold uppercase tracking-wider mb-0.5">sBTC Momentum</p>
+            <p className="text-xs font-bold text-white truncate">+12.4% Weekly Growth</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/[0.03] transition-colors cursor-default">
+          <div className="w-8 h-8 rounded-lg bg-orange-400/10 border border-orange-400/20 flex items-center justify-center shrink-0">
+            <Code2 size={14} className="text-orange-400" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[10px] text-muted font-bold uppercase tracking-wider mb-0.5">Network Activity</p>
+            <p className="text-xs font-bold text-white truncate">540 New Contracts</p>
           </div>
         </div>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-6">
-        <div className="flex-1 flex flex-col gap-6" style={{ minWidth: 0 }}>
-
-          {/* Section: Capital Flows */}
-          <div id="capital-distribution" className="flex items-center justify-between mb-2 gap-2">
-            <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              <div className="w-1 h-5 md:h-6 bg-primary rounded-full shrink-0"></div>
-              <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight truncate">Capital Distribution</h2>
+      <div className="flex flex-col xl:flex-row gap-8">
+        <div className="flex-1 flex flex-col gap-8" style={{ minWidth: 0 }}>
+          
+          {/* ── Section: Market Dynamics ──────────────────────────────────────── */}
+          <section className="flex flex-col gap-4">
+            <div id="market-dynamics" className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-6 bg-primary rounded-full" />
+                <h2 className="text-xl font-bold text-white tracking-tight">Market Dynamics</h2>
+              </div>
+              <span className="text-xs text-muted font-mono bg-bg-surface/50 px-2 py-1 rounded-md border border-border-muted/50">Aggregated Capital Flows</span>
             </div>
-            <span className="text-[10px] md:text-xs text-muted font-mono shrink-0 hidden sm:block">Across 5 major protocols</span>
-          </div>
 
-          {/* 2. Main Trend Chart */}
-          <ChartCard
-            title={`Total Value Locked Distribution (${timeFilter})`}
-            metricValue="$164,284,912"
-            metricChange={`+97.6% (${timeFilter})`}
-          >
-              <ResponsiveContainer width="100%" height="100%" debounce={50}>
-              <AreaChart data={tvlData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.3} />
-                <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} dy={10} minTickGap={30} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} tickFormatter={(val) => `$${val}M`} />
-                <RechartsTooltip content={<HoverTooltip multiSeries={true} />} cursor={{ stroke: 'var(--color-primary)', strokeWidth: 1, strokeDasharray: '4 4' }} strokeOpacity={0.5} />
-                <Area type="monotone" dataKey="alex" name="ALEX" stackId="1" stroke={protocolColors.alex} fill={protocolColors.alex} fillOpacity={0.6} activeDot={{ r: 4, strokeWidth: 0 }} />
-                <Area type="monotone" dataKey="arkadiko" name="Arkadiko" stackId="1" stroke={protocolColors.arkadiko} fill={protocolColors.arkadiko} fillOpacity={0.5} />
-                <Area type="monotone" dataKey="zest" name="Zest" stackId="1" stroke={protocolColors.zest} fill={protocolColors.zest} fillOpacity={0.4} />
-                <Area type="monotone" dataKey="stackingdao" name="StackingDAO" stackId="1" stroke={protocolColors.stackingdao} fill={protocolColors.stackingdao} fillOpacity={0.3} />
-                <Area type="monotone" dataKey="bitflow" name="Bitflow" stackId="1" stroke={protocolColors.bitflow} fill={protocolColors.bitflow} fillOpacity={0.2} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </ChartCard>
-
-          {/* Section: Key Metrics */}
-          <div id="key-metrics" className="flex items-center justify-between mb-2 mt-4 md:mt-6 gap-2">
-            <div className="flex items-center gap-2 md:gap-3 min-w-0">
-              <div className="w-1 h-5 md:h-6 bg-secondary rounded-full shrink-0"></div>
-              <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight truncate">Key Performance Indicators</h2>
-            </div>
-            <span className="text-[10px] md:text-xs text-muted font-mono shrink-0 hidden sm:block">Real-time on-chain metrics</span>
-          </div>
-
-          {/* 3. Metrics Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Total TVL Stacked Area Chart */}
             <ChartCard
-              title={`sBTC MINT VELOCITY (${timeFilter})`}
-              metricValue="542.8 BTC"
-              metricChange="+12.4%"
+              title={`TVL Distribution (${timeFilter})`}
+              metricValue="$164.2M"
+              metricChange={`+97.6% (YTD)`}
             >
-                <ResponsiveContainer width="100%" height="100%" debounce={50}>
-                <AreaChart data={mintData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.2} />
-                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted)' }} minTickGap={15} dy={5} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted)' }} />
-                  <RechartsTooltip content={<HoverTooltip />} cursor={{ stroke: 'var(--color-primary)' }} />
-                  <Area type="monotone" dataKey="value" stroke="var(--color-secondary)" fill="var(--color-secondary)" fillOpacity={0.2} strokeWidth={2} activeDot={{ r: 4, strokeWidth: 0 }} />
+              <ResponsiveContainer width="100%" height="100%" debounce={50}>
+                <AreaChart data={tvlData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.3} />
+                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} dy={10} minTickGap={30} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} tickFormatter={(val) => `$${val}M`} />
+                  <RechartsTooltip content={<HoverTooltip multiSeries={true} />} cursor={{ stroke: 'var(--color-primary)', strokeWidth: 1, strokeDasharray: '4 4' }} strokeOpacity={0.5} />
+                  <Area type="monotone" dataKey="alex" name="ALEX" stackId="1" stroke={protocolColors.alex} fill={protocolColors.alex} fillOpacity={0.6} activeDot={{ r: 4, strokeWidth: 0 }} />
+                  <Area type="monotone" dataKey="arkadiko" name="Arkadiko" stackId="1" stroke={protocolColors.arkadiko} fill={protocolColors.arkadiko} fillOpacity={0.5} />
+                  <Area type="monotone" dataKey="zest" name="Zest" stackId="1" stroke={protocolColors.zest} fill={protocolColors.zest} fillOpacity={0.4} />
+                  <Area type="monotone" dataKey="stackingdao" name="StackingDAO" stackId="1" stroke={protocolColors.stackingdao} fill={protocolColors.stackingdao} fillOpacity={0.3} />
+                  <Area type="monotone" dataKey="bitflow" name="Bitflow" stackId="1" stroke={protocolColors.bitflow} fill={protocolColors.bitflow} fillOpacity={0.2} />
                 </AreaChart>
               </ResponsiveContainer>
             </ChartCard>
 
-            <ChartCard
-              title={`DEVELOPER ADOPTION (${timeFilter})`}
-              metricValue="540"
-              metricChange="+8.4%"
-            >
+            {/* KPI Mini-Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <ChartCard title="sBTC MINT VELOCITY" metricValue="542.8 BTC" metricChange="+12.4%">
                 <ResponsiveContainer width="100%" height="100%" debounce={50}>
-                <BarChart data={devData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.2} />
-                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted)' }} minTickGap={15} dy={5} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted)' }} />
-                  <RechartsTooltip content={<HoverTooltip />} cursor={{ fill: 'var(--surface-lighter)', opacity: 0.3 }} />
-                  <Bar dataKey="value" fill="var(--color-primary)" radius={[4, 4, 0, 0]} barSize={8} />
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartCard>
+                  <AreaChart data={mintData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <XAxis dataKey="date" hide />
+                    <YAxis hide />
+                    <Area type="monotone" dataKey="value" stroke="var(--color-secondary)" fill="var(--color-secondary)" fillOpacity={0.1} strokeWidth={2} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </ChartCard>
 
-            <ChartCard
-              title="TRANSACTION DIVERSITY"
-              metricValue="100K+"
-              metricChange="Daily Operations"
-            >
+              <ChartCard title="DEV ADOPTION" metricValue="540" metricChange="+8.4%">
                 <ResponsiveContainer width="100%" height="100%" debounce={50}>
-                <PieChart>
-                  <Pie
-                    data={txTypeData}
-                    cx="50%"
-                    cy="45%"
-                    innerRadius={55}
-                    outerRadius={75}
-                    paddingAngle={4}
-                    dataKey="value"
-                    stroke="none"
-                  >
-                    {txTypeData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <RechartsTooltip content={<HoverTooltip />} />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-6">
-                <span className="text-[10px] uppercase font-bold text-muted tracking-tighter">Daily Ops</span>
-                <span className="text-xl font-bold text-white mt-1">100K+</span>
-              </div>
-            </ChartCard>
-          </div>
+                  <BarChart data={devData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <XAxis dataKey="date" hide />
+                    <YAxis hide />
+                    <Bar dataKey="value" fill="var(--color-primary)" radius={[2, 2, 0, 0]} barSize={4} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartCard>
 
-          {/* Mobile Activity Feed - Shows on small screens */}
-          <div className="xl:hidden flex flex-col gap-3 md:gap-4 mt-4 md:mt-6">
-            <div className="flex items-center gap-2 md:gap-3">
-              <div className="w-1 h-5 md:h-6 bg-success rounded-full"></div>
-              <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight">Recent Activity</h2>
+              <ChartCard title="TX DIVERSITY" metricValue="100K+" metricChange="Daily Ops">
+                <ResponsiveContainer width="100%" height="100%" debounce={50}>
+                  <PieChart>
+                    <Pie data={txTypeData} cx="50%" cy="50%" innerRadius={35} outerRadius={50} paddingAngle={4} dataKey="value" stroke="none">
+                      {txTypeData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
+                    </Pie>
+                  </PieChart>
+                </ResponsiveContainer>
+              </ChartCard>
             </div>
-            <div className="bg-bg-surface/60 backdrop-blur-md rounded-xl border border-border-muted p-4">
-              <div className="flex flex-col gap-4">
-                {feedEvents.slice(0, 3).map((event) => (
-                  <div key={event.id} className="flex gap-3 items-start">
-                    <div
-                      className="w-9 h-9 rounded-lg shrink-0 flex items-center justify-center bg-bg-deep border border-border-muted"
-                      style={{ color: event.color }}
-                    >
-                      <event.icon size={16} />
+          </section>
+
+          {/* ── Section: Protocol Performance ────────────────────────────────── */}
+          <section className="flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-1.5 h-6 bg-orange-400 rounded-full" />
+                <h2 className="text-xl font-bold text-white tracking-tight">Ecosystem Rankings</h2>
+              </div>
+              <button className="text-[10px] font-bold text-primary hover:text-white transition-colors bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">View Leaderboard</button>
+            </div>
+            <DataTable columns={tableColumns} data={protocolTableData} />
+          </section>
+        </div>
+
+        {/* ── Sidebar: Network Vitals ───────────────────────────────────────── */}
+        <aside className="xl:w-[360px] flex flex-col gap-6 shrink-0">
+          <div className="sticky top-6 flex flex-col gap-6">
+            
+            {/* Status & Health Unified */}
+            <div className="bg-bg-surface border border-border-muted rounded-2xl p-5 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-success/5 blur-[40px] rounded-full -mr-12 -mt-12" />
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-[10px] font-bold text-muted uppercase tracking-widest">Network Health</h3>
+                <StatusBadge status="optimal" />
+              </div>
+              
+              <div className="space-y-4 relative z-10">
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] text-muted font-bold uppercase tracking-tighter">Block Height</span>
+                    <span className="text-xl font-bold text-white font-mono">148,742</span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="text-[10px] text-muted font-bold uppercase tracking-tighter">Latency</span>
+                    <span className="text-sm font-bold text-success">5.2s</span>
+                  </div>
+                </div>
+                
+                <div className="h-px bg-border-muted/50" />
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[9px] text-muted uppercase font-bold tracking-tighter">sBTC Peg</span>
+                    <span className="text-xs font-bold text-white font-mono">0.9998</span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[9px] text-muted uppercase font-bold tracking-tighter">Signers</span>
+                    <span className="text-xs font-bold text-white font-mono">84 / 100</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Compact Activity Stream */}
+            <div className="bg-bg-surface border border-border-muted rounded-2xl overflow-hidden shadow-sm">
+              <div className="px-5 py-4 border-b border-border-muted/50 flex items-center justify-between">
+                <h3 className="text-xs font-bold text-white flex items-center gap-2">
+                  <Activity size={14} className="text-primary" />
+                  Live Activity
+                </h3>
+                <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+              </div>
+              
+              <div className="px-5 py-2 divide-y divide-border-muted/30">
+                {feedEvents.slice(0, 4).map((event) => (
+                  <div key={event.id} className="py-4 flex gap-3 group cursor-pointer transition-all">
+                    <div className="w-8 h-8 rounded-lg bg-bg-surface-lighter flex items-center justify-center shrink-0 border border-border-muted/50 group-hover:border-primary/50" style={{ color: event.color }}>
+                      <event.icon size={14} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs text-white font-semibold m-0 leading-snug">
+                      <p className="text-[12px] text-white font-semibold m-0 leading-snug group-hover:text-primary transition-colors truncate">
                         {event.title}
                       </p>
                       <span className="text-[10px] text-muted font-mono">{event.time}</span>
@@ -374,129 +372,14 @@ const Overview = () => {
                   </div>
                 ))}
               </div>
-              <button className="w-full mt-4 py-2 rounded-lg bg-primary/10 text-[11px] font-bold text-primary hover:bg-primary/20 transition-all border border-primary/20 cursor-pointer">
-                View All Activity
+              
+              <button className="w-full py-3 bg-bg-surface-lighter/30 text-[10px] font-bold text-muted hover:text-white transition-all border-t border-border-muted/50">
+                FULL NETWORK DATA →
               </button>
             </div>
+
           </div>
-
-          {/* Section: Protocol Performance */}
-          <div className="flex flex-col gap-3 md:gap-4 mt-4 md:mt-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-3">
-              <div className="flex items-start gap-2 md:gap-3">
-                <div className="w-1 h-5 md:h-6 bg-cta rounded-full shrink-0 mt-1"></div>
-                <div className="min-w-0">
-                  <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight">DeFi Protocol Health</h2>
-                  <p className="text-[11px] md:text-xs text-muted m-0 mt-1 leading-relaxed">Comparative analysis of top protocols by TVL and activity</p>
-                </div>
-              </div>
-              <button className="text-[11px] md:text-xs font-bold text-primary hover:text-primary/80 active:text-primary/80 transition-colors cursor-pointer px-4 py-2.5 md:py-2 bg-primary/5 rounded-lg hover:bg-primary/10 active:bg-primary/10 border border-primary/20 min-h-[44px] md:min-h-0 shrink-0 self-start sm:self-center">
-                View All Protocols →
-              </button>
-            </div>
-            <DataTable columns={tableColumns} data={protocolTableData} />
-          </div>
-
-        </div>
-
-        {/* 5. Activity Feed Sidebar */}
-        <div className="hidden xl:flex flex-col w-[320px] shrink-0 border-l border-border-muted/50 pl-6 relative">
-          <div className="absolute top-20 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -z-10 pointer-events-none" />
-          <div className="sticky top-6 flex flex-col gap-6">
-            {/* Network Status Card */}
-            <div className="bg-gradient-to-br from-primary/10 to-secondary/5 rounded-2xl border border-primary/20 p-5 backdrop-blur-md">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
-                <span className="text-[10px] font-bold text-success uppercase tracking-[0.15em]">All Systems Operational</span>
-              </div>
-              <div className="grid grid-cols-2 gap-3 mt-4">
-                <div>
-                  <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">Block Height</p>
-                  <p className="text-lg font-bold text-white m-0 font-mono">148,742</p>
-                </div>
-                <div>
-                  <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">Avg Block Time</p>
-                  <p className="text-lg font-bold text-white m-0 font-mono">5.2s</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Live Feed */}
-            <div className="bg-bg-surface/60 backdrop-blur-md rounded-2xl border border-border-muted overflow-hidden shadow-2xl transition-all duration-300 hover:border-border-bright">
-              <div className="p-5 border-b border-border-muted bg-deep/40 flex items-center justify-between">
-                <h3 className="text-sm font-bold m-0 text-white flex items-center gap-2 tracking-wide">
-                  <Activity size={16} className="text-primary" />
-                  Network Activity Stream
-                </h3>
-                <div className="flex items-center gap-2">
-                  <span className="text-[9px] text-muted font-mono">LIVE</span>
-                  <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-                </div>
-              </div>
-              <div className="p-5 flex flex-col gap-5 max-h-[450px] overflow-y-auto custom-scrollbar">
-                {feedEvents.map((event) => (
-                  <div
-                    key={event.id}
-                    className="flex gap-3 group cursor-pointer p-3 rounded-lg hover:bg-white/[0.02] transition-all duration-200 -m-3"
-                  >
-                    <div
-                      className="w-10 h-10 rounded-xl shrink-0 flex items-center justify-center bg-bg-deep border border-border-muted group-hover:border-primary/50 group-hover:shadow-[0_0_12px_rgba(59,130,246,0.2)] transition-all duration-300"
-                      style={{ color: event.color }}
-                    >
-                      <event.icon size={16} strokeWidth={2.5} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-[13px] text-white font-semibold m-0 leading-snug group-hover:text-primary transition-colors">
-                        {event.title}
-                      </p>
-                      <div className="flex items-center gap-2 mt-1.5">
-                        <span className="text-[10px] text-muted font-mono">{event.time}</span>
-                        <div className="w-1 h-1 rounded-full bg-muted/30" />
-                        <button className="text-[10px] text-primary/70 font-bold uppercase tracking-wider hover:text-primary transition-colors">
-                          View
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="p-4 bg-bg-deep/30 border-t border-border-muted">
-                <button className="w-full py-2.5 rounded-lg bg-primary/10 text-[11px] font-bold text-primary hover:text-white hover:bg-primary/20 transition-all border border-primary/20 hover:border-primary/40 cursor-pointer flex items-center justify-center gap-2">
-                  View Full Activity Log
-                  <ArrowUpRight size={12} />
-                </button>
-              </div>
-            </div>
-            
-            {/* Ecosystem Health Snapshot */}
-            <div className="bg-gradient-to-br from-success/10 to-primary/5 rounded-2xl border border-success/20 p-5 backdrop-blur-md">
-              <div className="flex items-center justify-between mb-3">
-                <h4 className="text-[10px] font-bold text-success uppercase tracking-[0.15em] m-0">Ecosystem Health</h4>
-                <div className="flex items-center gap-1">
-                  <div className="w-1.5 h-1.5 rounded-full bg-success" />
-                  <span className="text-[9px] text-success font-bold">Excellent</span>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-muted">sBTC Peg Health</span>
-                  <span className="text-sm font-bold text-white font-mono">0.9998</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-muted">Active Signers</span>
-                  <span className="text-sm font-bold text-white font-mono">84/100</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] text-muted">Network Latency</span>
-                  <span className="text-sm font-bold text-success font-mono">Normal</span>
-                </div>
-              </div>
-              <p className="text-[10px] text-muted leading-relaxed m-0 mt-4 pt-3 border-t border-success/10">
-                All critical infrastructure metrics are within optimal ranges. No immediate action required.
-              </p>
-            </div>
-          </div>
-        </div>
+        </aside>
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ const ApiDocs = () => {
             <Globe size={16} className="text-primary" />
             <span className="text-[10px] uppercase tracking-wider text-muted font-bold">Status</span>
           </div>
-          <p className="text-xl md:text-2xl font-bold text-white font-mono">Live</p>
+          <p className="text-xl md:text-2xl font-bold text-yellow-500/80 font-mono">Coming Soon</p>
         </div>
 
         <div className="bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-xl p-4 md:p-5">
@@ -91,8 +91,8 @@ const ApiDocs = () => {
         </div>
 
         <div className="flex items-center gap-2 mt-8 md:mt-10 text-muted text-[10px] font-bold uppercase tracking-widest relative z-10">
-          <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          <span>REST API v1.0 Available</span>
+          <div className="w-2 h-2 rounded-full bg-yellow-500/80" />
+          <span>REST API v1.0 Coming Soon</span>
         </div>
       </div>
 

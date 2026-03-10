@@ -98,8 +98,8 @@ const content = {
         StackScope provides real-time on-chain analytics for the Stacks Bitcoin L2 ecosystem. Our REST API and WebSocket feeds give you access to TVL, sBTC metrics, DeFi protocol data, and network activity.
       </p>
       <div className="flex items-center gap-2 mb-2">
-        <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-        <span className="text-xs font-bold text-green-400 uppercase tracking-wider">API is live</span>
+        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500/80" />
+        <span className="text-xs font-bold text-yellow-500/80 uppercase tracking-wider">API Coming Soon</span>
       </div>
       <h2 className="text-xl font-bold text-white mt-8 mb-4">Quick Example</h2>
       <p className="text-white/60 text-sm mb-2">Fetch the current ecosystem overview in one call:</p>
