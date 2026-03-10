@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ChevronRight, Activity, ArrowRight, ShieldCheck, BarChart3, Globe, Zap, Terminal } from 'lucide-react';
 import heroAsset from '../assets/hero_abstract.png';
-import logoIcon from '../assets/logo_icon.png';
 import chartAsset from '../assets/chart_growth.png';
 import securityAsset from '../assets/bento_security.png';
 
@@ -11,9 +10,9 @@ const Landing = () => {
 
   return (
     <div className="landing-page bg-bg-deep min-h-screen text-white selection:bg-primary selection:text-deep overflow-x-hidden relative">
-      <div className="absolute inset-0 bg-cryptic-grid pointer-events-none z-0" />
-      <div className="absolute inset-0 chain-overlay pointer-events-none z-0" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/50 to-bg-deep pointer-events-none z-1" />
+      <div className="fixed inset-0 bg-cryptic-grid pointer-events-none z-0" />
+      <div className="fixed inset-0 chain-overlay pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/20 to-bg-deep pointer-events-none z-[1]" />
       
       {/* Navigation - Glassmorphic Fixed */}
       <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
@@ -22,10 +21,12 @@ const Landing = () => {
             <span className="text-xl font-bold tracking-tighter text-white">Stack<span className="text-primary">Scope</span></span>
           </div>
           
-          <div className="hidden md:flex items-center gap-8 nav-links">
-            <a href="#" className="text-sm font-medium text-muted hover:text-white transition-colors">Features</a>
-            <a href="#" className="text-sm font-medium text-muted hover:text-white transition-colors">API</a>
-            <a href="#" className="text-sm font-medium text-muted hover:text-white transition-colors">Network</a>
+          <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full px-6 py-2 gap-8 nav-links backdrop-blur-md transition-all hover:border-white/20">
+            <a href="#" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Features</a>
+            <div className="w-[1px] h-3 bg-white/10" />
+            <a href="#" className="text-[13px] font-medium text-muted hover:text-white transition-colors">API</a>
+            <div className="w-[1px] h-3 bg-white/10" />
+            <a href="#" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Network</a>
           </div>
 
           <button 
@@ -152,11 +153,12 @@ const Landing = () => {
       </section>
 
       {/* Footer CTA */}
-      <footer className="max-w-7xl mx-auto px-6 py-32 text-center border-t border-white/5">
-        <h2 className="text-5xl font-bold mb-12">Building the future <br/> of Bitcoin.</h2>
+      <footer className="relative max-w-7xl mx-auto px-6 py-32 text-center border-t border-white/5 overflow-hidden">
+        <div className="absolute inset-0 footer-glow -z-10" />
+        <h2 className="text-5xl font-extrabold mb-12 text-white">Building the future <br/> of Bitcoin.</h2>
         <button 
           onClick={() => navigate('/overview')}
-          className="btn-primary text-xl px-12 py-5"
+          className="btn-primary text-xl px-12 py-5 shadow-2xl shadow-primary/40"
         >
           Open App
         </button>
@@ -169,9 +171,9 @@ const Landing = () => {
             <a href="#" className="hover:text-primary transition-colors">Privacy</a>
             <a href="#" className="hover:text-primary transition-colors">Terms</a>
             <a href="#" className="hover:text-primary transition-colors">Twitter (X)</a>
-            <a href="https://github.com" className="flex items-center gap-2 hover:text-white transition-colors">
+            <div className="flex items-center gap-2 text-primary">
               <Activity size={14} /> GitHub
-            </a>
+            </div>
           </div>
           <p>© 2026 StackScope Research.</p>
         </div>
