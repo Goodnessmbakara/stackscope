@@ -128,11 +128,27 @@
   }
 
   .stat-card {
-    @apply bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-xl p-6 transition-all duration-300;
+    @apply bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-xl p-5 transition-all duration-300 relative overflow-hidden;
   }
 
   .stat-card:hover {
-    @apply border-border-bright bg-bg-surface/80 translate-y-[-4px] shadow-lg;
+    @apply border-border-bright bg-bg-surface/80 shadow-lg;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+
+  .stat-card:hover::before {
+    opacity: 0.5;
   }
 
   .chart-card {
