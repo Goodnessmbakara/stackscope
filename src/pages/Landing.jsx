@@ -25,6 +25,8 @@ const Landing = () => {
             <a href="#features" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Features</a>
             <div className="w-[1px] h-3 bg-white/10" />
             <a href="#api" className="text-[13px] font-medium text-muted hover:text-white transition-colors">API</a>
+            <div className="w-[1px] h-3 bg-white/10" />
+            <a href="/docs" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Docs</a>
           </div>
 
           <button 
@@ -122,9 +124,9 @@ const Landing = () => {
                 <h3 className="text-2xl font-bold mb-4">Open Data API</h3>
                 <p className="text-muted mb-6">High-throughput REST and WebSocket feeds for your proprietary models and apps.</p>
               </div>
-              <button className="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+              <a href="/docs" className="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
                 Explore Documentation <ChevronRight size={16} />
-              </button>
+              </a>
             </div>
             <div className="flex-1 bg-deep/50 p-6 font-mono text-sm overflow-hidden">
               <div className="flex items-center gap-2 mb-4">

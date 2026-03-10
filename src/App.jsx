@@ -14,6 +14,7 @@ import ContractSearch from './pages/ContractSearch'
 import WalletSearch from './pages/WalletSearch'
 import ApiDocs from './pages/ApiDocs'
 import Reports from './pages/Reports'
+import Docs from './pages/Docs'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path="/search/wallet" element={<AppLayout><WalletSearch /></AppLayout>} />
         <Route path="/api" element={<AppLayout><ApiDocs /></AppLayout>} />
         <Route path="/reports" element={<AppLayout><Reports /></AppLayout>} />
+        <Route path="/docs" element={<Docs />} />
         
         <Route path="*" element={
           <div className="flex flex-col items-center justify-center p-12 text-center h-[100vh]">
