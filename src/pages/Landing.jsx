@@ -14,10 +14,10 @@ const Landing = () => {
       <div className="fixed inset-0 chain-overlay pointer-events-none z-0" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/20 to-bg-deep pointer-events-none z-0" />
       
-      {/* Navigation - Glassmorphic Fixed */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] px-4 md:px-6 py-4 md:py-6">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2 shrink-0">
+      {/* Navigation - Glassmorphic Floating Island */}
+      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-[100] w-[calc(100%-2rem)] max-w-7xl">
+        <div className="flex items-center justify-between bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl px-4 md:px-6 py-3 shadow-2xl shadow-black/20">
+          <div className="flex items-center gap-2 shrink-0 group/logo cursor-pointer transition-transform duration-300 hover:scale-105 active:scale-95">
             <span className="text-lg md:text-xl font-bold tracking-tighter text-white">Stack<span className="text-primary">Scope</span></span>
           </div>
           
@@ -29,22 +29,24 @@ const Landing = () => {
             <a href="/docs" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Docs</a>
           </div>
 
-          {/* Hide on mobile — hero section already has this CTA */}
-          <button 
-            onClick={() => navigate('/overview')}
-            className="hidden md:flex group items-center gap-2 btn-primary px-5 py-2.5 text-sm shrink-0"
-          >
-            Launch Dashboard
-            <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Desktop CTA */}
+            <button 
+              onClick={() => navigate('/overview')}
+              className="hidden md:flex group items-center gap-2 btn-primary px-5 py-2.5 text-sm shrink-0"
+            >
+              Launch Dashboard
+              <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </button>
 
-          {/* Mobile — compact icon button */}
-          <button
-            onClick={() => navigate('/overview')}
-            className="flex md:hidden items-center gap-1.5 bg-primary text-white text-xs font-bold px-3 py-2 rounded-full shrink-0"
-          >
-            Launch <ChevronRight size={13} />
-          </button>
+            {/* Mobile — compact icon button */}
+            <button
+              onClick={() => navigate('/overview')}
+              className="flex md:hidden items-center gap-1.5 bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl shrink-0 active:scale-95 transition-transform"
+            >
+              Launch <ChevronRight size={13} />
+            </button>
+          </div>
         </div>
       </nav>
 
