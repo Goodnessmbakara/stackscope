@@ -44,10 +44,6 @@ const Landing = () => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl aspect-square bg-primary/10 rounded-full blur-[120px] -z-10 translate-y-[-50%]" />
         
         <div className="max-w-5xl mx-auto text-center animate-fade-in flex flex-col items-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-lighter/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-widest mb-12 animate-bounce-subtle">
-            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Live on Stacks Mainnet
-          </div>
           
           <h1 className="heading-display mb-10 leading-[1.05]">
             The Intelligence Layer <br className="hidden md:block" /> for Bitcoin DeFi
@@ -153,8 +149,7 @@ const Landing = () => {
       </section>
 
       {/* Footer CTA */}
-      <footer className="relative max-w-7xl mx-auto px-6 py-32 text-center border-t border-white/5 overflow-hidden">
-        <div className="absolute inset-0 footer-glow -z-10" />
+      <footer className="relative max-w-7xl mx-auto px-6 py-32 text-center border-t border-white/5">
         <h2 className="text-5xl font-extrabold mb-12 text-white">Building the future <br/> of Bitcoin.</h2>
         <button 
           onClick={() => navigate('/overview')}
