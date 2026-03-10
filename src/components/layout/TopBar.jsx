@@ -155,9 +155,23 @@ const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
   return (
     <header className="top-bar flex items-center justify-between px-4 md:px-6 bg-bg-surface border-b border-border-muted" style={{ height: isMobile ? '64px' : '72px' }}>
       <div className="flex items-center flex-1 gap-3 md:gap-6 max-w-full relative">
+        {/* Mobile Menu Trigger */}
+        {isMobile && (
+          <button 
+            onClick={toggleSidebar}
+            className="flex items-center justify-center w-10 h-10 -ml-2 rounded-xl text-muted hover:text-white hover:bg-white/5 active:scale-95 transition-all"
+          >
+            <div className="w-5 h-5 flex flex-col justify-center gap-[3px]">
+              <span className="w-full h-0.5 bg-current rounded-full" />
+              <span className="w-1/2 h-0.5 bg-current rounded-full" />
+              <span className="w-full h-0.5 bg-current rounded-full" />
+            </div>
+          </button>
+        )}
+
         {/* Logo/Brand on Mobile */}
         {isMobile && (
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 shrink-0 mr-2">
             <span className="text-base font-bold tracking-tight text-white whitespace-nowrap">
               Stack<span className="text-primary">Scope</span>
             </span>

@@ -18,7 +18,7 @@ import {
   User
 } from 'lucide-react';
 
-const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
+const Sidebar = ({ isCollapsed, setIsCollapsed, isMobile }) => {
   const primaryNav = [
     { name: 'Dashboard', path: '/overview', icon: LayoutDashboard },
     { name: 'sBTC', path: '/sbtc', icon: Coins },
@@ -40,8 +40,8 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
 
   return (
     <aside 
-      className={`sidebar flex flex-col h-screen fixed left-0 top-0 transition-all duration-300 z-50`}
-      style={{ width: isCollapsed ? '64px' : '240px' }}
+      className={`sidebar flex flex-col ${isMobile ? 'relative h-full w-full' : 'fixed left-0 top-0 h-screen transition-all duration-300'} z-50`}
+      style={{ width: !isMobile ? (isCollapsed ? '64px' : '240px') : undefined }}
     >
       {/* Header / Branding */}
       <div className="flex items-center justify-between px-3" style={{ height: '72px' }}>
