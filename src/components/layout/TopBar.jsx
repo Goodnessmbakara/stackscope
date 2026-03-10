@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Share2, Bell, User, ChevronRight, BarChart3, Activity, ShieldCheck, Code2, LayoutDashboard, FileCode, Wallet, BookOpen, TrendingUp } from 'lucide-react';
+import { Search, User, ChevronRight, BarChart3, Activity, ShieldCheck, Code2, LayoutDashboard, FileCode, Wallet, BookOpen, TrendingUp, Home, Check, Copy, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const SEARCH_INDEX = [
   // ── Pages ──────────────────────────────────────────────────────────────────
-  { label: 'Overview', description: 'Ecosystem overview & TVL', path: '/overview', group: 'Pages', icon: LayoutDashboard },
+  { label: 'Dashboard', description: 'Main dashboard — ecosystem overview & TVL', path: '/overview', group: 'Pages', icon: LayoutDashboard },
   { label: 'sBTC Deep Dive', description: 'sBTC supply, health & signers', path: '/sbtc', group: 'Pages', icon: ShieldCheck },
   { label: 'DeFi Health', description: 'Protocol TVL and APY', path: '/defi', group: 'Pages', icon: BarChart3 },
   { label: 'Network Activity', description: 'Blocks, transactions, contracts', path: '/network', group: 'Pages', icon: Activity },
@@ -259,31 +259,14 @@ const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
       <div className="flex items-center gap-2 md:gap-6 shrink-0">
         {/* Global Actions */}
         <div className="flex items-center gap-1 md:gap-2 border-l border-border-muted pl-2 md:pl-6">
-          <button
-            className="text-muted hover:text-white transition-colors flex items-center justify-center p-2 rounded-lg hover:bg-bg-surface-lighter active:bg-bg-surface-lighter min-w-[44px] min-h-[44px]"
-            title="Notifications"
+          <a
+            href="/"
+            className="flex items-center gap-2 text-primary hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-bg-surface-lighter border border-transparent hover:border-border-muted text-sm font-medium"
+            title="Back to Home"
           >
-            <Bell size={isMobile ? 18 : 20} />
-          </button>
-
-          {!isMobile && (
-            <button
-              className="text-muted hover:text-white transition-colors flex items-center justify-center p-2 rounded-lg hover:bg-bg-surface-lighter"
-              title="Share this view"
-            >
-              <Share2 size={20} />
-            </button>
-          )}
-
-          <div className={`flex items-center gap-2 md:gap-3 ${!isMobile ? 'ml-2 pl-4 border-l border-border-muted' : ''} group cursor-pointer`}>
-            <div className="flex flex-col items-end hidden lg:flex">
-              <span className="text-[11px] font-bold text-white leading-none">Stacks Dev</span>
-              <span className="text-[10px] text-primary font-mono leading-none mt-1 uppercase tracking-tighter opacity-70">Pro Tier</span>
-            </div>
-            <div className={`${isMobile ? 'w-9 h-9' : 'w-10 h-10'} rounded-full bg-bg-surface-lighter/50 border-2 border-border-muted flex items-center justify-center text-primary group-hover:border-primary/50 transition-colors bg-gradient-to-br from-primary/10 to-transparent overflow-hidden min-w-[44px] min-h-[44px]`}>
-              <User size={isMobile ? 18 : 20} />
-            </div>
-          </div>
+            <Home size={isMobile ? 16 : 17} />
+            {!isMobile && <span className="text-xs font-semibold">Home</span>}
+          </a>
         </div>
       </div>
     </header>

@@ -14,12 +14,13 @@ import {
   Github,
   ChevronLeft,
   ChevronRight,
-  Shield
+  Shield,
+  User
 } from 'lucide-react';
 
 const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   const primaryNav = [
-    { name: 'Overview', path: '/', icon: LayoutDashboard },
+    { name: 'Dashboard', path: '/overview', icon: LayoutDashboard },
     { name: 'sBTC', path: '/sbtc', icon: Coins },
     { name: 'Developers', path: '/developers', icon: Code },
     { name: 'DeFi', path: '/defi', icon: LineChart },
@@ -54,11 +55,11 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           </button>
         ) : (
           <>
-            <div className="flex items-center gap-3 overflow-hidden">
-              <span className="text-lg font-bold tracking-tight text-white whitespace-nowrap animate-fade-in">
+            <a href="/" className="flex items-center gap-3 overflow-hidden group">
+              <span className="text-lg font-bold tracking-tight text-white whitespace-nowrap animate-fade-in group-hover:text-primary transition-colors">
                 Stack<span className="text-primary">Scope</span>
               </span>
-            </div>
+            </a>
             <button
               onClick={() => setIsCollapsed(true)}
               className="text-muted hover:text-white transition-colors p-1.5 rounded-md hover:bg-bg-surface-lighter cursor-pointer"
@@ -157,6 +158,19 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
             )}
           </NavLink>
         ))}
+
+        {/* Profile */}
+        <div className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} px-1 py-2 rounded-xl hover:bg-bg-surface-lighter/40 transition-colors cursor-pointer group mt-2`}>
+          <div className="w-8 h-8 rounded-full bg-bg-surface-lighter border border-border-muted flex items-center justify-center text-primary shrink-0 group-hover:border-primary/50 transition-colors bg-gradient-to-br from-primary/10 to-transparent">
+            <User size={16} />
+          </div>
+          {!isCollapsed && (
+            <div className="flex flex-col min-w-0">
+              <span className="text-[12px] font-bold text-white leading-none truncate">Stacks Dev</span>
+              <span className="text-[10px] text-primary font-mono leading-none mt-0.5 uppercase tracking-tighter opacity-70">Pro Tier</span>
+            </div>
+          )}
+        </div>
 
         {!isCollapsed && (
           <div className="flex items-center justify-between mt-4 px-3 py-2 bg-bg-surface/30 rounded-lg border border-border-muted">
