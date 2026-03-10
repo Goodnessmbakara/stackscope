@@ -12,7 +12,7 @@ const Landing = () => {
     <div className="landing-page bg-bg-deep min-h-screen text-white selection:bg-primary selection:text-deep overflow-x-hidden relative">
       <div className="fixed inset-0 bg-cryptic-grid pointer-events-none z-0" />
       <div className="fixed inset-0 chain-overlay pointer-events-none z-0" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/20 to-bg-deep pointer-events-none z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/20 to-bg-deep pointer-events-none z-0" />
       
       {/* Navigation - Glassmorphic Fixed */}
       <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-6">
