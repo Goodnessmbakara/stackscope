@@ -31,21 +31,25 @@ const Landing = () => {
 
           <div className="flex items-center gap-3">
             {/* Desktop CTA */}
-            <button 
-              onClick={() => navigate('/overview')}
+            <a 
+              href="https://docs.google.com/forms/d/e/1FAIpQLSer7YS8gTggn2bKLyH5NU_Dgnyy5CTru7_rDi6ak5zMuyFUAA/viewform?usp=publish-editor"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden md:flex group items-center gap-2 btn-primary px-5 py-2.5 text-sm shrink-0"
             >
-              Launch Dashboard
+              Join Waitlist
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            </a>
 
             {/* Mobile — compact icon button */}
-            <button
-              onClick={() => navigate('/overview')}
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSer7YS8gTggn2bKLyH5NU_Dgnyy5CTru7_rDi6ak5zMuyFUAA/viewform?usp=publish-editor"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex md:hidden items-center gap-1.5 bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl shrink-0 active:scale-95 transition-transform"
             >
-              Launch <ChevronRight size={13} />
-            </button>
+              Join <ChevronRight size={13} />
+            </a>
           </div>
         </div>
       </nav>
@@ -151,6 +155,46 @@ const Landing = () => {
   "status": "stable"
 }`}
               </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Waitlist Section */}
+      <section className="relative py-24 px-6 overflow-hidden">
+        <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full translate-y-1/2 -z-10" />
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 md:p-16 text-center relative overflow-hidden group shadow-2xl">
+            {/* Animated background element */}
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 group-hover:animate-scan" />
+            
+            <div className="relative z-10 flex flex-col items-center">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest mb-6">
+                <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+                Limited Early Access
+              </div>
+              
+              <h2 className="text-4xl md:text-6xl font-extrabold tracking-tighter mb-6 text-white leading-tight">
+                Be the first to build <br className="hidden md:block" /> with <span className="bg-gradient-to-r from-primary to-blue-400 bg-clip-text text-transparent">StackScope.</span>
+              </h2>
+              
+              <p className="text-lg text-muted mb-10 max-w-xl mx-auto leading-relaxed">
+                Join our private beta to access institutional-grade Bitcoin L2 analytics, advanced sBTC monitoring, and high-throughput data APIs.
+              </p>
+              
+              <a 
+                href="https://docs.google.com/forms/d/e/1FAIpQLSer7YS8gTggn2bKLyH5NU_Dgnyy5CTru7_rDi6ak5zMuyFUAA/viewform?usp=publish-editor" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="btn-primary text-lg px-10 py-4 shadow-xl shadow-primary/20 rounded-2xl flex items-center gap-2 group/btn"
+              >
+                Join Early Access
+                <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
+              </a>
+              
+              <p className="mt-8 text-[11px] text-muted-lighter font-medium uppercase tracking-widest opacity-50">
+                Institutional & Developer access only
+              </p>
             </div>
           </div>
         </div>

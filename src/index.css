@@ -252,3 +252,12 @@
     background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
   }
 }
+
+@keyframes scan {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.animate-scan {
+  animation: scan 2s linear infinite;
+}
