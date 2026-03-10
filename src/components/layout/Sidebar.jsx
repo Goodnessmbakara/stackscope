@@ -45,9 +45,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
       {/* Header / Branding */}
       <div className="flex items-center justify-between px-4" style={{ height: '72px' }}>
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="flex items-center justify-center bg-primary rounded-lg text-bg-deep" style={{ width: '32px', height: '32px', flexShrink: 0 }}>
-            <Shield size={20} fill="currentColor" />
-          </div>
+          <img src={logoIcon} alt="Logo" className="w-8 h-8 object-contain" />
           {!isCollapsed && (
             <span className="text-lg font-bold tracking-tight text-white whitespace-nowrap animate-fade-in">
               Stack<span className="text-primary">Scope</span>

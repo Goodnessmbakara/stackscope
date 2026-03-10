@@ -10,11 +10,13 @@ const Landing = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="landing-page bg-bg-deep min-h-screen text-white selection:bg-primary selection:text-deep">
+    <div className="landing-page bg-bg-deep min-h-screen text-white selection:bg-primary selection:text-deep overflow-x-hidden relative">
+      <div className="fixed inset-0 bg-cryptic-grid pointer-events-none opacity-40" />
+      <div className="fixed inset-0 chain-overlay pointer-events-none" />
+      
       {/* Navigation - Glassmorphic Fixed */}
       <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between glass py-3 px-6 rounded-2xl border border-white/10 shadow-2xl">
-          <div className="flex items-center gap-3">
           <div className="flex items-center gap-3">
             <img src={logoIcon} alt="StackScope Logo" className="w-10 h-10 object-contain drop-shadow-xl" />
             <span className="text-xl font-bold tracking-tighter text-white">Stack<span className="text-primary">Scope</span></span>
