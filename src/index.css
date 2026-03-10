@@ -68,6 +68,17 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-4px); }
   }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+      transform: scale(1);
+    }
+    50% {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+      transform: scale(1.02);
+    }
+  }
 }
 
 /* Layer: Base resets and defaults */
