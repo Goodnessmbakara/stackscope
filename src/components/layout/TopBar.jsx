@@ -3,7 +3,7 @@ import { Search, Share2, Bell, User, ChevronRight, BarChart3, Activity, ShieldCh
 import { useNavigate } from 'react-router-dom';
 
 const SEARCH_INDEX = [
-  // Dashboard Pages
+  // ── Pages ──────────────────────────────────────────────────────────────────
   { label: 'Overview', description: 'Ecosystem overview & TVL', path: '/overview', group: 'Pages', icon: LayoutDashboard },
   { label: 'sBTC Deep Dive', description: 'sBTC supply, health & signers', path: '/sbtc', group: 'Pages', icon: ShieldCheck },
   { label: 'DeFi Health', description: 'Protocol TVL and APY', path: '/defi', group: 'Pages', icon: BarChart3 },
@@ -13,17 +13,36 @@ const SEARCH_INDEX = [
   { label: 'Wallet Search', description: 'Search wallet addresses', path: '/search/wallet', group: 'Pages', icon: Wallet },
   { label: 'API Docs', description: 'REST API documentation', path: '/api', group: 'Pages', icon: BookOpen },
   { label: 'Reports', description: 'Ecosystem reports', path: '/reports', group: 'Pages', icon: TrendingUp },
-  // Protocols
+  { label: 'Documentation', description: 'Full StackScope docs', path: '/docs', group: 'Pages', icon: BookOpen },
+
+  // ── Overview page sections ──────────────────────────────────────────────────
+  { label: 'Total TVL', description: 'Total value locked across all protocols', path: '/overview', anchor: '#quick-insights', group: 'Content', icon: BarChart3 },
+  { label: 'Capital Distribution', description: 'TVL breakdown across ALEX, Arkadiko, Zest…', path: '/overview', anchor: '#capital-distribution', group: 'Content', icon: BarChart3 },
+  { label: 'Top Performer', description: 'StackingDAO +22.1% — leading 7-day TVL growth', path: '/overview', anchor: '#quick-insights', group: 'Content', icon: TrendingUp },
+  { label: 'sBTC Momentum', description: '+12.4% supply growth — strong adoption this week', path: '/overview', anchor: '#quick-insights', group: 'Content', icon: ShieldCheck },
+  { label: 'Developer Activity', description: '540 contracts deployed, +8.4% from last week', path: '/overview', anchor: '#quick-insights', group: 'Content', icon: Code2 },
+  { label: 'Key Performance Indicators', description: 'sBTC mint activity and developer charts', path: '/overview', anchor: '#key-metrics', group: 'Content', icon: BarChart3 },
+  { label: 'Network Activity Stream', description: 'Live feed of contracts, swaps, and mints', path: '/overview', anchor: '#network-feed', group: 'Content', icon: Activity },
+  { label: 'Protocol Health Table', description: 'APY, TVL change and health score per protocol', path: '/overview', anchor: '#protocol-table', group: 'Content', icon: ShieldCheck },
+  { label: 'Transaction Type Breakdown', description: 'DeFi, STX transfer, NFT, deploy breakdown', path: '/overview', anchor: '#tx-breakdown', group: 'Content', icon: BarChart3 },
+  { label: 'Ecosystem Overview', description: 'Real-time analytics for the Stacks Bitcoin L2', path: '/overview', anchor: '#overview-header', group: 'Content', icon: LayoutDashboard },
+  { label: 'Block Height', description: '148,742 — current Stacks mainnet block', path: '/overview', anchor: '#network-feed', group: 'Content', icon: Activity },
+  { label: 'Avg Block Time', description: '5.2s — average block time', path: '/overview', anchor: '#network-feed', group: 'Content', icon: Activity },
+
+  // ── Protocol data ──────────────────────────────────────────────────────────
   { label: 'ALEX', description: 'DeFi AMM — TVL $89.2M · APY 14.2%', path: '/defi', group: 'Protocols', icon: BarChart3 },
   { label: 'Arkadiko', description: 'Stablecoin — TVL $38.5M · APY 8.4%', path: '/defi', group: 'Protocols', icon: BarChart3 },
   { label: 'Zest Protocol', description: 'Lending — TVL $32.1M · APY 18.5%', path: '/defi', group: 'Protocols', icon: BarChart3 },
   { label: 'StackingDAO', description: 'Liquid Stacking — TVL $24.8M', path: '/defi', group: 'Protocols', icon: BarChart3 },
   { label: 'Bitflow', description: 'DEX — TVL $12.4M · APY 11.2%', path: '/defi', group: 'Protocols', icon: BarChart3 },
-  // Metrics shortcuts
-  { label: 'sBTC Supply', description: '542.8 BTC total supply', path: '/sbtc', group: 'Metrics', icon: ShieldCheck },
-  { label: 'sBTC Peg Health', description: '0.9998 — Stable', path: '/sbtc', group: 'Metrics', icon: ShieldCheck },
-  { label: 'Total TVL', description: '$164.2M across all protocols', path: '/overview', group: 'Metrics', icon: BarChart3 },
-  { label: 'Block Height', description: '148,742 — Stacks mainnet', path: '/network', group: 'Metrics', icon: Activity },
+
+  // ── Docs content ───────────────────────────────────────────────────────────
+  { label: 'Getting Started', description: 'Quickstart guide for StackScope API', path: '/docs', anchor: null, group: 'Content', icon: BookOpen },
+  { label: 'Authentication', description: 'API key header: X-API-Key', path: '/docs', anchor: null, group: 'Content', icon: BookOpen },
+  { label: 'Rate Limits', description: 'Free: 100/min, Pro: 1000/min', path: '/docs', anchor: null, group: 'Content', icon: BookOpen },
+  { label: 'WebSocket Events', description: 'block.new, sbtc.mint, defi.large_swap…', path: '/docs', anchor: null, group: 'Content', icon: BookOpen },
+  { label: 'JavaScript SDK', description: 'npm install @stackscope/sdk', path: '/docs', anchor: null, group: 'Content', icon: Code2 },
+  { label: 'Python SDK', description: 'pip install stackscope', path: '/docs', anchor: null, group: 'Content', icon: Code2 },
 ];
 
 const GroupLabels = {
@@ -91,10 +110,37 @@ const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
   }, []);
 
   const handleSelect = (item) => {
-    navigate(item.path);
     setOpen(false);
     setQuery('');
     inputRef.current?.blur();
+
+    const doScroll = () => {
+      if (item.anchor) {
+        const el = document.querySelector(item.anchor);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Flash-highlight
+          el.style.transition = 'outline 0s, box-shadow 0.15s ease';
+          el.style.outline = '2px solid var(--color-primary, #3B82F6)';
+          el.style.boxShadow = '0 0 0 4px rgba(59,130,246,0.25)';
+          el.style.borderRadius = '12px';
+          setTimeout(() => {
+            el.style.outline = '';
+            el.style.boxShadow = '';
+            el.style.borderRadius = '';
+          }, 1800);
+        }
+      }
+    };
+
+    if (window.location.pathname === item.path) {
+      // Already on the page — just scroll
+      doScroll();
+    } else {
+      navigate(item.path);
+      // Wait for page render then scroll
+      setTimeout(doScroll, 350);
+    }
   };
 
   const handleKeyDown = (e) => {

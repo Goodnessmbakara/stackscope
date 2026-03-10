@@ -209,7 +209,7 @@ const Overview = () => {
       </div>
 
       {/* Quick Insights - Bloomberg Style */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl md:rounded-2xl border border-primary/20 p-4 md:p-6 backdrop-blur-md">
+      <div id="quick-insights" className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl md:rounded-2xl border border-primary/20 p-4 md:p-6 backdrop-blur-md">
         <div className="flex items-start gap-3 p-3 md:p-0 rounded-lg md:rounded-none hover:bg-white/5 md:hover:bg-transparent transition-colors cursor-pointer active:bg-white/10 md:active:bg-transparent">
           <div className="w-10 h-10 md:w-8 md:h-8 rounded-lg bg-success/20 border border-success/30 flex items-center justify-center shrink-0">
             <ArrowUpRight size={18} className="text-success md:w-4 md:h-4" />
@@ -246,7 +246,7 @@ const Overview = () => {
         <div className="flex-1 flex flex-col gap-6" style={{ minWidth: 0 }}>
 
           {/* Section: Capital Flows */}
-          <div className="flex items-center justify-between mb-2 gap-2">
+          <div id="capital-distribution" className="flex items-center justify-between mb-2 gap-2">
             <div className="flex items-center gap-2 md:gap-3 min-w-0">
               <div className="w-1 h-5 md:h-6 bg-primary rounded-full shrink-0"></div>
               <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight truncate">Capital Distribution</h2>
@@ -276,7 +276,7 @@ const Overview = () => {
           </ChartCard>
 
           {/* Section: Key Metrics */}
-          <div className="flex items-center justify-between mb-2 mt-4 md:mt-6 gap-2">
+          <div id="key-metrics" className="flex items-center justify-between mb-2 mt-4 md:mt-6 gap-2">
             <div className="flex items-center gap-2 md:gap-3 min-w-0">
               <div className="w-1 h-5 md:h-6 bg-secondary rounded-full shrink-0"></div>
               <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight truncate">Key Performance Indicators</h2>
