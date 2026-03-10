@@ -261,7 +261,7 @@ const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
         <div className="flex items-center gap-1 md:gap-2 border-l border-border-muted pl-2 md:pl-6">
           <a
             href="/"
-            className="flex items-center gap-2 text-primary hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-bg-surface-lighter border border-transparent hover:border-border-muted text-sm font-medium"
+            className="flex items-center gap-2 text-muted hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-bg-surface-lighter border border-transparent hover:border-border-muted text-sm font-medium"
             title="Back to Home"
           >
             <Home size={isMobile ? 16 : 17} />
