@@ -94,16 +94,20 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
               ${isActive ? 'bg-bg-surface-lighter text-white' : 'text-muted hover:bg-bg-surface-lighter/50 hover:text-white'}
             `}
           >
-            <item.icon size={18} className="flex-shrink-0" />
-            {!isCollapsed && (
-              <div className="flex items-center justify-between w-full">
-                <span className="text-body-small whitespace-nowrap">{item.name}</span>
-                {item.badge && (isActive ? null : (
-                  <span className="text-[9px] bg-primary/10 text-primary border border-primary/20 px-1.5 py-0.5 rounded font-bold">
-                    {item.badge}
-                  </span>
-                ))}
-              </div>
+            {({ isActive }) => (
+              <>
+                <item.icon size={18} className="flex-shrink-0" />
+                {!isCollapsed && (
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-body-small whitespace-nowrap">{item.name}</span>
+                    {item.badge && !isActive && (
+                      <span className="text-[9px] bg-primary/10 text-primary border border-primary/20 px-1.5 py-0.5 rounded font-bold">
+                        {item.badge}
+                      </span>
+                    )}
+                  </div>
+                )}
+              </>
             )}
           </NavLink>
         ))}
