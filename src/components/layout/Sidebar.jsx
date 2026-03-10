@@ -47,12 +47,10 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
         {isCollapsed ? (
           <button
             onClick={() => setIsCollapsed(false)}
-            className="w-full flex items-center justify-center bg-primary/10 hover:bg-primary/20 border-2 border-primary/40 hover:border-primary text-primary hover:text-white transition-all duration-300 p-3 rounded-xl cursor-pointer group shadow-lg shadow-primary/20 hover:shadow-primary/40 relative overflow-visible"
+            className="w-full flex items-center justify-center text-white hover:text-primary transition-colors p-2 rounded-lg hover:bg-bg-surface-lighter cursor-pointer"
             title="Expand sidebar"
-            style={{ animation: 'pulse-glow 2s ease-in-out infinite' }}
           >
-            <ChevronRight size={22} className="group-hover:scale-125 transition-transform duration-300" strokeWidth={2.5} />
-            <div className="absolute -right-1 -top-1 w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+            <ChevronRight size={20} strokeWidth={2.5} />
           </button>
         ) : (
           <>

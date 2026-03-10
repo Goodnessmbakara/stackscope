@@ -1,5 +1,5 @@
-import React from 'react';
-import { useOutletContext } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { useTimeFilter } from '../context/TimeFilterContext';
 import StatCard from '../components/ui/StatCard';
 import ChartCard from '../components/ui/ChartCard';
 import StatusBadge from '../components/ui/StatusBadge';
@@ -21,19 +21,6 @@ import {
 } from 'recharts';
 import { Activity, Code, Settings, Zap, ArrowUpRight, Code2 } from 'lucide-react';
 
-// Mock Data Generators Space
-const generateSparkline = (points, start, end) => 
-  Array.from({ length: points }).map((_, i) => ({ value: start + Math.random() * (end - start) }));
-
-const tvlData = Array.from({ length: 30 }).map((_, i) => ({
-  date: `Mar ${i + 1}`,
-  alex: 45 + Math.random() * 10 + (i * 1.5),
-  arkadiko: 25 + Math.random() * 5 + (i * 0.5),
-  zest: 10 + Math.random() * 8 + (i * 0.8),
-  bitflow: 5 + Math.random() * 4 + (i * 0.2),
-  stackingdao: 2 + Math.random() * 12 + (i * 1.1)
-}));
-
 const protocolColors = {
   alex: 'var(--color-primary)',
   arkadiko: 'var(--color-secondary)',
@@ -42,8 +29,54 @@ const protocolColors = {
   stackingdao: '#8B5CF6'
 };
 
-const mintData = Array.from({ length: 30 }).map((_, i) => ({ date: `Mar ${i+1}`, value: 300 + Math.random()*150 + i*10 }));
-const devData = Array.from({ length: 30 }).map((_, i) => ({ date: `Mar ${i+1}`, value: 10 + Math.random()*25 + (i%7===0?-10:0) }));
+// ── Data generation by time range ────────────────────────────────────────────
+const RANGE_CONFIG = {
+  '24H': { points: 24, labelFn: (i) => `${i}:00`, base: { tvl: 150, sbtc: 520, mint: 250, dev: 8  }, growth: 0.005 },
+  '7D':  { points: 7,  labelFn: (i) => ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i], base: { tvl: 130, sbtc: 490, mint: 220, dev: 10 }, growth: 0.02  },
+  '30D': { points: 30, labelFn: (i) => `Mar ${i + 1}`, base: { tvl: 100, sbtc: 400, mint: 200, dev: 10 }, growth: 0.05  },
+  '90D': { points: 90, labelFn: (i) => `Day ${i + 1}`, base: { tvl: 80,  sbtc: 320, mint: 170, dev: 8  }, growth: 0.1   },
+  '1Y':  { points: 12, labelFn: (i) => ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][i], base: { tvl: 40, sbtc: 120, mint: 80, dev: 5 }, growth: 0.3 },
+  'ALL': { points: 16, labelFn: (i) => `Q${(i % 4) + 1} '${22 + Math.floor(i / 4)}`, base: { tvl: 10, sbtc: 20, mint: 20, dev: 2 }, growth: 0.6 },
+};
+
+const STAT_CONFIG = {
+  '24H': { tvl: '$163.1M', tvlChg: '+0.7%', sbtcSupply: '541.2 BTC', sbtcChg: '+0.4%', holders: '1,841', holdersChg: '+0.3%', addrs: '2,104', addrsChg: '-0.2%', contracts: '22', contractsChg: '+10%', vol: '$8.1M', volChg: '+3.2%' },
+  '7D':  { tvl: '$161.8M', tvlChg: '+1.5%', sbtcSupply: '538.4 BTC', sbtcChg: '+2.1%', holders: '1,820', holdersChg: '+1.5%', addrs: '5,812', addrsChg: '-0.8%', contracts: '89', contractsChg: '+5.2%', vol: '$28.4M', volChg: '+9.1%' },
+  '30D': { tvl: '$164.2M', tvlChg: '+2.3%', sbtcSupply: '542.8 BTC', sbtcChg: '+12.4%', holders: '1,847', holdersChg: '+5.8%', addrs: '12,482', addrsChg: '-1.2%', contracts: '540', contractsChg: '+8.4%', vol: '$42.1M', volChg: '+18.2%' },
+  '90D': { tvl: '$164.2M', tvlChg: '+18.4%', sbtcSupply: '542.8 BTC', sbtcChg: '+38.4%', holders: '1,847', holdersChg: '+22.1%', addrs: '38,200', addrsChg: '+14.2%', contracts: '1,480', contractsChg: '+21.4%', vol: '$120M', volChg: '+44.2%' },
+  '1Y':  { tvl: '$164.2M', tvlChg: '+82.1%', sbtcSupply: '542.8 BTC', sbtcChg: '+210%', holders: '1,847', holdersChg: '+430%', addrs: '148K', addrsChg: '+62%', contracts: '5.2K', contractsChg: '+84%', vol: '$480M', volChg: '+210%' },
+  'ALL': { tvl: '$164.2M', tvlChg: '+1,640%', sbtcSupply: '542.8 BTC', sbtcChg: '∞', holders: '1,847', holdersChg: '+1,847%', addrs: '580K', addrsChg: '+9,800%', contracts: '18.4K', contractsChg: '+18,400%', vol: '$2.1B', volChg: '+21,000%' },
+};
+
+function generateData(timeFilter) {
+  const cfg = RANGE_CONFIG[timeFilter] || RANGE_CONFIG['30D'];
+  const { points, labelFn, base, growth } = cfg;
+
+  const tvlData = Array.from({ length: points }).map((_, i) => ({
+    date: labelFn(i),
+    alex: (base.tvl * 0.45) + Math.random() * 8 + i * growth * base.tvl * 0.45,
+    arkadiko: (base.tvl * 0.22) + Math.random() * 4 + i * growth * base.tvl * 0.2,
+    zest: (base.tvl * 0.12) + Math.random() * 5 + i * growth * base.tvl * 0.12,
+    bitflow: (base.tvl * 0.06) + Math.random() * 2 + i * growth * base.tvl * 0.06,
+    stackingdao: (base.tvl * 0.04) + Math.random() * 8 + i * growth * base.tvl * 0.15,
+  }));
+
+  const mintData = Array.from({ length: points }).map((_, i) => ({
+    date: labelFn(i),
+    value: base.mint + Math.random() * 80 + i * growth * base.mint,
+  }));
+
+  const devData = Array.from({ length: points }).map((_, i) => ({
+    date: labelFn(i),
+    value: base.dev + Math.random() * 20 + (i % 7 === 0 ? -5 : 0) + i * growth * base.dev,
+  }));
+
+  return { tvlData, mintData, devData };
+}
+
+const generateSparkline = (points, start, end) => 
+  Array.from({ length: points }).map(() => ({ value: start + Math.random() * (end - start) }));
+
 const txTypeData = [
   { name: 'DeFi', value: 45000, color: 'var(--color-primary)' },
   { name: 'STX Transfer', value: 30000, color: 'var(--color-secondary)' },
@@ -87,7 +120,9 @@ const feedEvents = [
 ];
 
 const Overview = () => {
-  const { timeFilter } = useOutletContext() || { timeFilter: '30D' };
+  const { timeFilter } = useTimeFilter();
+  const stats = STAT_CONFIG[timeFilter] || STAT_CONFIG['30D'];
+  const { tvlData, mintData, devData } = useMemo(() => generateData(timeFilter), [timeFilter]);
 
   return (
     <div className="flex flex-col gap-4 md:gap-6 pb-4 md:pb-12 w-full animate-fade-in">
@@ -131,43 +166,43 @@ const Overview = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
         <StatCard
           title="TOTAL TVL"
-          value="$164.2M"
-          change="+2.3%"
-          isPositive={true}
+          value={stats.tvl}
+          change={stats.tvlChg}
+          isPositive={!stats.tvlChg.startsWith('-')}
           sparklineData={generateSparkline(30, 150, 170)}
         />
         <StatCard
           title="SBTC SUPPLY"
-          value="542.8 BTC"
-          change="+12.4%"
+          value={stats.sbtcSupply}
+          change={stats.sbtcChg}
           isPositive={true}
           sparklineData={generateSparkline(30, 400, 550)}
         />
         <StatCard
           title="SBTC HOLDERS"
-          value="1,847"
-          change="+5.8%"
+          value={stats.holders}
+          change={stats.holdersChg}
           isPositive={true}
           sparklineData={generateSparkline(30, 1500, 1900)}
         />
         <StatCard
-          title="ACTIVE ADDRESSES (7D)"
-          value="12,482"
-          change="-1.2%"
-          isPositive={false}
+          title={`ACTIVE ADDRESSES (${timeFilter})`}
+          value={stats.addrs}
+          change={stats.addrsChg}
+          isPositive={!stats.addrsChg.startsWith('-')}
           sparklineData={generateSparkline(30, 10000, 15000)}
         />
         <StatCard
-          title="CONTRACTS (7D)"
-          value="540"
-          change="+8.4%"
+          title={`CONTRACTS (${timeFilter})`}
+          value={stats.contracts}
+          change={stats.contractsChg}
           isPositive={true}
           sparklineData={generateSparkline(10, 30, 80)}
         />
         <StatCard
-          title="24H VOLUME"
-          value="$42.1M"
-          change="+18.2%"
+          title={`${timeFilter} VOLUME`}
+          value={stats.vol}
+          change={stats.volChg}
           isPositive={true}
           sparklineData={generateSparkline(30, 20, 50)}
         />

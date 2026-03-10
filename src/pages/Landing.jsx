@@ -61,12 +61,9 @@ const Landing = () => {
               Launch Dashboard
               <ChevronRight size={20} className="inline ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button 
-              className="w-full sm:w-auto glass-button"
-              onClick={() => window.open('https://docs.stacksendowment.co', '_blank')}
-            >
+            <a href="/docs" className="w-full sm:w-auto glass-button">
               Read Docs
-            </button>
+            </a>
           </div>
         </div>
 
@@ -169,7 +166,7 @@ const Landing = () => {
               </svg>
               @iameskor_
             </a>
-            <a href="https://github.com/stackscope" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
+            <a href="https://github.com/Goodnessmbakara/stackscope" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Activity size={14} /> GitHub
             </a>
           </div>

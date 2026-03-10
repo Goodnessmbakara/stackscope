@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import AppLayout from './components/layout/AppLayout'
+import { TimeFilterProvider } from './context/TimeFilterContext'
 
 // Pages
 import Landing from './pages/Landing'
@@ -18,6 +19,7 @@ import Docs from './pages/Docs'
 
 function App() {
   return (
+    <TimeFilterProvider>
     <BrowserRouter>
       <Routes>
         {/* Public Landing Page */}
@@ -44,6 +46,7 @@ function App() {
         } />
       </Routes>
     </BrowserRouter>
+    </TimeFilterProvider>
   )
 }
 
