@@ -7,6 +7,7 @@ const AppLayout = ({ children }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const [globalTimeFilter, setGlobalTimeFilter] = useState('30D');
 
   // Responsive listener
   useEffect(() => {
@@ -53,11 +54,11 @@ const AppLayout = ({ children }) => {
           marginLeft: isMobile ? '0' : (isCollapsed ? '64px' : '240px'),
         }}
       >
-        <TopBar isMobile={isMobile} toggleSidebar={() => setMobileSidebarOpen(true)} />
+        <TopBar isMobile={isMobile} toggleSidebar={() => setMobileSidebarOpen(true)} timeFilter={globalTimeFilter} setTimeFilter={setGlobalTimeFilter} />
         
         <main className={`content-scroll flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8 ${isMobile ? 'pb-20' : ''}`}>
           <div className="container mx-auto max-w-[1440px]">
-            {children || <Outlet />}
+            {children || <Outlet context={{ timeFilter: globalTimeFilter }} />}
           </div>
         </main>
       </div>

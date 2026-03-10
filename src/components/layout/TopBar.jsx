@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Search, Share2, Menu, Bell, User } from 'lucide-react';
 
-const TopBar = ({ isMobile, toggleSidebar }) => {
-  const [timeRange, setTimeRange] = useState('30D');
+const TopBar = ({ isMobile, toggleSidebar, timeFilter, setTimeFilter }) => {
   const ranges = ['24H', '7D', '30D', '90D', '1Y', 'ALL'];
 
   return (
@@ -39,18 +38,16 @@ const TopBar = ({ isMobile, toggleSidebar }) => {
             ⌘ K
           </div>
         </div>
-      </div>
 
-      <div className="flex items-center gap-2 md:gap-6 shrink-0">
         {/* Time Range Selector */}
         <div className="hidden lg:flex items-center bg-bg-surface-lighter/50 p-1 rounded-xl border border-border-muted">
           {ranges.map((range) => (
             <button
               key={range}
-              onClick={() => setTimeRange(range)}
+              onClick={() => setTimeFilter && setTimeFilter(range)}
               className={`
                 text-[11px] font-bold px-4 py-1.5 rounded-lg transition-all duration-200 cursor-pointer
-                ${timeRange === range 
+                ${timeFilter === range 
                   ? 'bg-primary text-bg-deep shadow-md' 
                   : 'text-muted hover:text-white hover:bg-bg-surface-lighter'}
               `}
@@ -59,6 +56,9 @@ const TopBar = ({ isMobile, toggleSidebar }) => {
             </button>
           ))}
         </div>
+      </div>
+
+      <div className="flex items-center gap-2 md:gap-6 shrink-0">
 
         {/* Global Actions */}
         <div className="flex items-center gap-1 md:gap-2 border-l border-border-muted pl-2 md:pl-6">

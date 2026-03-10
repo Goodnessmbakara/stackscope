@@ -22,11 +22,9 @@ const Landing = () => {
           </div>
           
           <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full px-6 py-2 gap-8 nav-links backdrop-blur-md transition-all hover:border-white/20">
-            <a href="#" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Features</a>
+            <a href="#features" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Features</a>
             <div className="w-[1px] h-3 bg-white/10" />
-            <a href="#" className="text-[13px] font-medium text-muted hover:text-white transition-colors">API</a>
-            <div className="w-[1px] h-3 bg-white/10" />
-            <a href="#" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Network</a>
+            <a href="#api" className="text-[13px] font-medium text-muted hover:text-white transition-colors">API</a>
           </div>
 
           <button 
@@ -58,8 +56,8 @@ const Landing = () => {
               className="w-full sm:w-auto btn-primary group"
               onClick={() => navigate('/overview')}
             >
-              Start Exploring
-              <ArrowRight size={20} className="inline ml-2 group-hover:translate-x-1 transition-transform" />
+              Launch Dashboard
+              <ChevronRight size={20} className="inline ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
             <button 
               className="w-full sm:w-auto glass-button"
@@ -73,7 +71,7 @@ const Landing = () => {
       </section>
 
       {/* Bento Grid Features */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
+      <section id="features" className="max-w-7xl mx-auto px-6 py-24">
         <div className="mb-16">
           <h2 className="heading-2 mb-4">Institutional-grade analytics.</h2>
           <p className="text-xl text-muted">A comprehensive view of the Stacks economic engine.</p>
@@ -103,7 +101,7 @@ const Landing = () => {
             <img src={securityAsset} alt="Security" className="absolute -right-8 -bottom-8 w-2/3 opacity-30 group-hover:rotate-12 transition-transform duration-500" />
           </div>
 
-          <div className="chart-card p-8 flex flex-col items-center justify-center text-center group hover:bg-surface-lighter/20 transition-colors">
+          <div id="network" className="chart-card p-8 flex flex-col items-center justify-center text-center group hover:bg-surface-lighter/20 transition-colors">
             <div className="relative mb-6">
               <div className="absolute inset-0 bg-primary/20 rounded-full blur-2xl group-hover:blur-3xl transition-all" />
               <div className="relative w-20 h-20 bg-deep rounded-full border border-primary/30 flex items-center justify-center text-primary">
@@ -114,7 +112,7 @@ const Landing = () => {
             <p className="text-muted text-sm">Every block, transaction, and contract deploy visualized in real-time.</p>
           </div>
 
-          <div className="md:col-span-2 chart-card p-0 flex flex-col md:flex-row overflow-hidden group">
+          <div id="api" className="md:col-span-2 chart-card p-0 flex flex-col md:flex-row overflow-hidden group">
             <div className="flex-1 p-8 flex flex-col justify-between border-b md:border-b-0 md:border-r border-white/5">
               <div>
                 <div className="inline-flex items-center gap-2 mb-4 text-xs font-bold text-primary uppercase tracking-widest">
@@ -163,12 +161,15 @@ const Landing = () => {
             <span className="font-bold text-white">StackScope</span>
           </div>
           <div className="flex gap-8">
-            <a href="#" className="hover:text-primary transition-colors">Privacy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms</a>
-            <a href="#" className="hover:text-primary transition-colors">Twitter (X)</a>
-            <div className="flex items-center gap-2 text-primary">
+            <a href="https://x.com/iameskor_" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+              </svg>
+              @iameskor_
+            </a>
+            <a href="https://github.com/stackscope" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-primary transition-colors">
               <Activity size={14} /> GitHub
-            </div>
+            </a>
           </div>
           <p>© 2026 StackScope Research.</p>
         </div>

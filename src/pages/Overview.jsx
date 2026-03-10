@@ -1,4 +1,5 @@
 import React from 'react';
+import { useOutletContext } from 'react-router-dom';
 import StatCard from '../components/ui/StatCard';
 import ChartCard from '../components/ui/ChartCard';
 import StatusBadge from '../components/ui/StatusBadge';
@@ -86,6 +87,8 @@ const feedEvents = [
 ];
 
 const Overview = () => {
+  const { timeFilter } = useOutletContext() || { timeFilter: '30D' };
+
   return (
     <div className="flex flex-col gap-4 md:gap-6 pb-4 md:pb-12 w-full animate-fade-in">
       {/* Header Area */}
@@ -218,9 +221,9 @@ const Overview = () => {
 
           {/* 2. Main Trend Chart */}
           <ChartCard
-            title="Total Value Locked Distribution"
+            title={`Total Value Locked Distribution (${timeFilter})`}
             metricValue="$164,284,912"
-            metricChange="+97.6% (YTD)"
+            metricChange={`+97.6% (${timeFilter})`}
           >
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={tvlData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
@@ -249,7 +252,7 @@ const Overview = () => {
           {/* 3. Metrics Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <ChartCard
-              title="sBTC MINT VELOCITY"
+              title={`sBTC MINT VELOCITY (${timeFilter})`}
               metricValue="542.8 BTC"
               metricChange="+12.4%"
             >
@@ -265,7 +268,7 @@ const Overview = () => {
             </ChartCard>
 
             <ChartCard
-              title="DEVELOPER ADOPTION"
+              title={`DEVELOPER ADOPTION (${timeFilter})`}
               metricValue="540"
               metricChange="+8.4%"
             >
