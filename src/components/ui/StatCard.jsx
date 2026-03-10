@@ -44,8 +44,8 @@ const StatCard = ({ title, value, change, isPositive, sparklineData, isLoading, 
 
       {/* Sparkline */}
       {sparklineData && sparklineData.length > 0 && (
-        <div className="mt-3 pt-2 border-t border-border-muted/30" style={{ height: '40px', width: '100%', opacity: 0.7 }}>
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="mt-3 pt-2 border-t border-border-muted/30" style={{ height: '40px', width: '100%', minWidth: 0, opacity: 0.7 }}>
+          <ResponsiveContainer width="100%" height="100%" debounce={50}>
             <LineChart data={sparklineData}>
               <Line
                 type="monotone"

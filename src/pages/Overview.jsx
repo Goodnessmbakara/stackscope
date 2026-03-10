@@ -260,7 +260,7 @@ const Overview = () => {
             metricValue="$164,284,912"
             metricChange={`+97.6% (${timeFilter})`}
           >
-            <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100%" debounce={50}>
               <AreaChart data={tvlData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.3} />
                 <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} dy={10} minTickGap={30} />
@@ -291,7 +291,7 @@ const Overview = () => {
               metricValue="542.8 BTC"
               metricChange="+12.4%"
             >
-              <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" debounce={50}>
                 <AreaChart data={mintData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.2} />
                   <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted)' }} minTickGap={15} dy={5} />
@@ -307,7 +307,7 @@ const Overview = () => {
               metricValue="540"
               metricChange="+8.4%"
             >
-              <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" debounce={50}>
                 <BarChart data={devData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.2} />
                   <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 10, fill: 'var(--muted)' }} minTickGap={15} dy={5} />
@@ -323,7 +323,7 @@ const Overview = () => {
               metricValue="100K+"
               metricChange="Daily Operations"
             >
-              <ResponsiveContainer width="100%" height="100%">
+                <ResponsiveContainer width="100%" height="100%" debounce={50}>
                 <PieChart>
                   <Pie
                     data={txTypeData}

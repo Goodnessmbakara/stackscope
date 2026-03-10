@@ -66,7 +66,7 @@ const ChartCard = ({
       {isStale && <DataStaleWarning minutesAgo={staleMinutesAgo} />}
 
       {/* Content Area */}
-      <div className="flex-1 px-6 py-4 flex flex-col relative min-h-[220px]">
+      <div className="flex-1 px-6 py-4 flex flex-col relative min-h-[220px]" style={{ minWidth: 0 }}>
         {isEmpty ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-bg-surface/50">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-primary opacity-30 mb-4">
