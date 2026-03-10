@@ -15,10 +15,10 @@ const Landing = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/20 to-bg-deep pointer-events-none z-0" />
       
       {/* Navigation - Glassmorphic Fixed */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-6">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-xl font-bold tracking-tighter text-white">Stack<span className="text-primary">Scope</span></span>
+      <nav className="fixed top-0 left-0 right-0 z-[100] px-4 md:px-6 py-4 md:py-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-lg md:text-xl font-bold tracking-tighter text-white">Stack<span className="text-primary">Scope</span></span>
           </div>
           
           <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full px-6 py-2 gap-8 nav-links backdrop-blur-md transition-all hover:border-white/20">
@@ -29,31 +29,40 @@ const Landing = () => {
             <a href="/docs" className="text-[13px] font-medium text-muted hover:text-white transition-colors">Docs</a>
           </div>
 
+          {/* Hide on mobile — hero section already has this CTA */}
           <button 
             onClick={() => navigate('/overview')}
-            className="group flex items-center gap-2 btn-primary px-5 py-2.5 text-sm"
+            className="hidden md:flex group items-center gap-2 btn-primary px-5 py-2.5 text-sm shrink-0"
           >
             Launch Dashboard
             <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </button>
+
+          {/* Mobile — compact icon button */}
+          <button
+            onClick={() => navigate('/overview')}
+            className="flex md:hidden items-center gap-1.5 bg-primary text-white text-xs font-bold px-3 py-2 rounded-full shrink-0"
+          >
+            Launch <ChevronRight size={13} />
           </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-48 pb-24 px-6 overflow-hidden">
+      <section className="relative pt-28 md:pt-48 pb-16 md:pb-24 px-5 md:px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl aspect-square bg-primary/10 rounded-full blur-[120px] -z-10 translate-y-[-50%]" />
         
         <div className="max-w-5xl mx-auto text-center animate-fade-in flex flex-col items-center">
           
-          <h1 className="heading-display mb-10 leading-[1.05]">
-            The Intelligence Layer <br className="hidden md:block" /> for Bitcoin DeFi
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 md:mb-10 leading-[1.05]">
+            The Intelligence Layer <br className="hidden sm:block" /> for Bitcoin DeFi
           </h1>
           
-          <p className="text-xl text-muted leading-relaxed mb-16 max-w-3xl mx-auto">
-            Experience real-time on-chain analytics, TVL flows, and sBTC insights. <br className="hidden lg:block" /> Radically transparent data for the next generation of finance.
+          <p className="text-base md:text-xl text-muted leading-relaxed mb-10 md:mb-16 max-w-2xl mx-auto px-2">
+            Real-time on-chain analytics, TVL flows, and sBTC insights — radically transparent data for the next generation of finance.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
             <button 
               className="w-full sm:w-auto btn-primary group"
               onClick={() => navigate('/overview')}
@@ -61,7 +70,7 @@ const Landing = () => {
               Launch Dashboard
               <ChevronRight size={20} className="inline ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
-            <a href="/docs" className="w-full sm:w-auto glass-button">
+            <a href="/docs" className="w-full sm:w-auto glass-button text-center">
               Read Docs
             </a>
           </div>
