@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Search, Share2, Menu, Bell, User } from 'lucide-react';
-import logoIcon from '../../assets/logo_icon.png';
 
 const TopBar = ({ isMobile, toggleSidebar }) => {
   const [timeRange, setTimeRange] = useState('30D');

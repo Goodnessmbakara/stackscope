@@ -11,14 +11,14 @@ const Landing = () => {
 
   return (
     <div className="landing-page bg-bg-deep min-h-screen text-white selection:bg-primary selection:text-deep overflow-x-hidden relative">
-      <div className="fixed inset-0 bg-cryptic-grid pointer-events-none opacity-40" />
-      <div className="fixed inset-0 chain-overlay pointer-events-none" />
+      <div className="absolute inset-0 bg-cryptic-grid pointer-events-none z-0" />
+      <div className="absolute inset-0 chain-overlay pointer-events-none z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/50 to-bg-deep pointer-events-none z-1" />
       
       {/* Navigation - Glassmorphic Fixed */}
       <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
         <div className="max-w-7xl mx-auto flex items-center justify-between glass py-3 px-6 rounded-2xl border border-white/10 shadow-2xl">
-          <div className="flex items-center gap-3">
-            <img src={logoIcon} alt="StackScope Logo" className="w-10 h-10 object-contain drop-shadow-xl" />
+          <div className="flex items-center gap-2">
             <span className="text-xl font-bold tracking-tighter text-white">Stack<span className="text-primary">Scope</span></span>
           </div>
           
@@ -163,7 +163,6 @@ const Landing = () => {
         
         <div className="mt-32 flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-white/5 text-muted text-sm">
           <div className="flex items-center gap-2">
-            <img src={logoIcon} alt="Logo" className="w-6 h-6 object-contain" />
             <span className="font-bold text-white">StackScope</span>
           </div>
           <div className="flex gap-8">
