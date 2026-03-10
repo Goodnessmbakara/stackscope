@@ -15,8 +15,8 @@ const Landing = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg-deep/20 to-bg-deep pointer-events-none z-[1]" />
       
       {/* Navigation - Glassmorphic Fixed */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between glass py-3 px-6 rounded-2xl border border-white/10 shadow-2xl">
+      <nav className="fixed top-0 left-0 right-0 z-[100] px-6 py-6">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold tracking-tighter text-white">Stack<span className="text-primary">Scope</span></span>
           </div>
