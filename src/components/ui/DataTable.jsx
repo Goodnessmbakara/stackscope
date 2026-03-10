@@ -27,29 +27,21 @@ const DataTable = ({ columns, data, isLoading, emptyMessage = "No data available
   }, [data, sortConfig]);
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg border border-border shadow-sm bg-white custom-scrollbar relative">
+    <div className="w-full overflow-x-auto rounded-xl border border-border-muted shadow-2xl bg-bg-surface custom-scrollbar relative">
       <table className="w-full text-left border-collapse min-w-[600px]">
-        <thead 
-          style={{ 
-            backgroundColor: 'var(--midnight-navy)', 
-            color: 'var(--white)',
-            position: 'sticky',
-            top: 0,
-            zIndex: 20
-          }}
-        >
+        <thead className="bg-bg-deep/80 backdrop-blur-md sticky top-0 z-20 border-b border-border-muted">
           <tr>
             {columns.map((col) => (
               <th 
                 key={col.key} 
-                className="text-label py-3 px-4 font-medium whitespace-nowrap select-none group"
-                style={{ cursor: col.sortable ? 'pointer' : 'default', height: '48px' }}
+                className="text-label py-4 px-4 whitespace-nowrap select-none group border-b border-border-muted"
+                style={{ cursor: col.sortable ? 'pointer' : 'default' }}
                 onClick={() => col.sortable && handleSort(col.key)}
               >
-                <div className="flex items-center gap-1">
-                  {col.label}
+                <div className="flex items-center gap-2">
+                  <span className="group-hover:text-primary transition-colors">{col.label}</span>
                   {col.sortable && (
-                     <span className={`opacity-0 group-hover:opacity-50 transition-opacity ${sortConfig.key === col.key ? 'opacity-100 flex flex-col' : ''}`}>
+                     <span className={`transition-all ${sortConfig.key === col.key ? 'text-primary' : 'opacity-20 group-hover:opacity-100'}`}>
                        {sortConfig.key === col.key ? (
                          sortConfig.direction === 'asc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />
                        ) : (
@@ -62,34 +54,32 @@ const DataTable = ({ columns, data, isLoading, emptyMessage = "No data available
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-border-muted">
           {isLoading ? (
-            // Skeleton Loader Rows
             Array.from({ length: 5 }).map((_, i) => (
-              <tr key={i} className={i % 2 === 0 ? 'bg-white' : 'bg-light-gray'} style={{ height: '48px' }}>
+              <tr key={i} className="bg-bg-surface" style={{ height: '56px' }}>
                 {columns.map((col, j) => (
-                  <td key={j} className="px-4 py-3 border-b border-border">
-                    <div className="animate-pulse bg-gray-200 h-4 rounded w-3/4"></div>
+                  <td key={j} className="px-4 py-3">
+                    <div className="animate-pulse bg-bg-surface-lighter h-4 rounded w-3/4"></div>
                   </td>
                 ))}
               </tr>
             ))
           ) : sortedData?.length === 0 ? (
-            // Empty State
             <tr>
-              <td colSpan={columns.length} className="px-4 py-8 text-center text-muted border-b border-border" style={{ height: '160px' }}>
-                <div className="flex flex-col items-center justify-center">
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mb-2 opacity-50">
+              <td colSpan={columns.length} className="px-4 py-20 text-center text-muted h-[200px]">
+                <div className="flex flex-col items-center justify-center animate-fade-in">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mb-4 opacity-20">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="17 8 12 3 7 8"></polyline>
                     <line x1="12" y1="3" x2="12" y2="15"></line>
                   </svg>
-                  <span className="text-body font-medium">{emptyMessage}</span>
+                  <span className="text-body font-semibold">{emptyMessage}</span>
+                  <p className="text-xs opacity-50 mt-2">No on-chain records found for this query.</p>
                 </div>
               </td>
             </tr>
           ) : (
-            // Data Rows
             sortedData.map((row, i) => {
               const isActive = activeRowId === row.id;
               
@@ -98,20 +88,14 @@ const DataTable = ({ columns, data, isLoading, emptyMessage = "No data available
                   key={row.id || i}
                   onClick={() => onRowClick && onRowClick(row)}
                   className={`
-                    border-b border-border transition-colors group
-                    ${i % 2 === 0 ? 'bg-white' : 'bg-light-gray'}
-                    ${onRowClick ? 'cursor-pointer hover:bg-teal-bg' : ''}
+                    transition-all duration-200 group
+                    ${onRowClick ? 'cursor-pointer hover:bg-white/5' : ''}
+                    ${isActive ? 'bg-primary/10' : 'bg-transparent'}
                   `}
-                  style={{
-                    height: '48px',
-                    ...(isActive ? {
-                      backgroundColor: 'var(--teal-bg)',
-                      boxShadow: 'inset 3px 0 0 0 var(--teal)'
-                    } : {})
-                  }}
+                  style={{ height: '56px' }}
                 >
                   {columns.map((col) => (
-                    <td key={col.key} className="px-4 py-3 text-body-small text-charcoal">
+                    <td key={col.key} className={`px-4 py-3 text-[13px] font-medium font-mono ${isActive ? 'text-primary' : 'text-text-primary'}`}>
                       {col.render ? col.render(row[col.key], row) : row[col.key]}
                     </td>
                   ))}

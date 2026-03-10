@@ -16,74 +16,49 @@ const ChartCard = ({
   // Skeleton Loading State
   if (isLoading) {
     return (
-      <div 
-        className="chart-card flex flex-col relative"
-        style={{
-          padding: 'var(--space-3)',
-          borderRadius: 'var(--radius-lg)',
-          backgroundColor: 'var(--white)',
-          boxShadow: 'var(--shadow-level-1)',
-          minHeight: '320px',
-          width: '100%'
-        }}
-      >
-        <div className="flex justify-between items-center mb-4">
-          <div className="animate-pulse bg-gray-200 h-6 w-1/3 rounded"></div>
+      <div className="chart-card flex flex-col relative animate-fade-in" style={{ minHeight: '320px' }}>
+        <div className="flex justify-between items-center mb-6 px-6 pt-6">
+          <div className="animate-pulse bg-bg-surface-lighter h-6 w-1/3 rounded-md"></div>
           <div className="flex gap-2">
-            <div className="animate-pulse bg-gray-200 h-5 w-5 rounded"></div>
-            <div className="animate-pulse bg-gray-200 h-5 w-5 rounded"></div>
+            <div className="animate-pulse bg-bg-surface-lighter h-5 w-5 rounded-md"></div>
+            <div className="animate-pulse bg-bg-surface-lighter h-5 w-5 rounded-md"></div>
           </div>
         </div>
-        
-        {/* Shimmer skeleton for chart area */}
-        <div 
-          className="flex-1 rounded" 
-          style={{ 
-            background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
-            backgroundSize: '200% 100%',
-            animation: 'shimmer 1.5s infinite linear'
-          }}
-        />
-        <style>{`
-          @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-        `}</style>
+        <div className="flex-1 rounded-lg bg-bg-surface-lighter mx-6 mb-6 animate-pulse" />
       </div>
     );
   }
 
   return (
-    <div 
-      className="chart-card flex flex-col relative overflow-hidden"
-      style={{
-        borderRadius: 'var(--radius-lg)',
-        backgroundColor: 'var(--white)',
-        boxShadow: 'var(--shadow-level-1)',
-        minHeight: '320px',
-        width: '100%'
-      }}
-    >
+    <div className="chart-card flex flex-col relative overflow-hidden animate-fade-in group" style={{ minHeight: '320px' }}>
       {/* Header Area */}
       <div className="flex justify-between items-start px-6 pt-6 pb-2">
-        <div>
-          <h2 className="heading-2 m-0 mb-1 text-charcoal">{title}</h2>
+        <div className="flex-1">
+          <h2 className="heading-3 m-0 mb-2 uppercase tracking-wider">{title}</h2>
           {(metricValue || metricChange) && (
             <div className="flex items-baseline gap-2">
               {metricValue && <span className="mono-metric">{metricValue}</span>}
-              {metricChange && <span className="text-body-small" style={{ color: metricChange.startsWith('+') ? 'var(--success-text)' : 'var(--error-text)' }}>{metricChange}</span>}
+              {metricChange && (
+                <span 
+                  className={`text-body-small font-bold ${metricChange.startsWith('+') ? 'text-success' : 'text-error'}`}
+                >
+                  {metricChange}
+                </span>
+              )}
             </div>
           )}
         </div>
         
-        {/* Actions */}
-        <div className="flex gap-3 text-muted">
-          <button className="hover:text-teal transition-colors" title="Download CSV" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-            <Download size={20} />
+        {/* Actions - Subtle until hover */}
+        <div className="flex gap-3 text-muted transition-opacity duration-300 opacity-40 group-hover:opacity-100">
+          <button className="hover:text-primary transition-colors cursor-pointer" title="Download CSV" style={{ background: 'none', border: 'none', padding: 0 }}>
+            <Download size={18} />
           </button>
-          <button className="hover:text-teal transition-colors" title="Embed Chart" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-            <Code2 size={20} />
+          <button className="hover:text-primary transition-colors cursor-pointer" title="Embed Chart" style={{ background: 'none', border: 'none', padding: 0 }}>
+            <Code2 size={18} />
           </button>
-          <button className="hover:text-teal transition-colors" title="Expand Chart" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-            <Maximize2 size={20} />
+          <button className="hover:text-primary transition-colors cursor-pointer" title="Expand Chart" style={{ background: 'none', border: 'none', padding: 0 }}>
+            <Maximize2 size={18} />
           </button>
         </div>
       </div>
@@ -93,13 +68,13 @@ const ChartCard = ({
       {/* Content Area */}
       <div className="flex-1 px-6 py-4 flex flex-col relative min-h-[220px]">
         {isEmpty ? (
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="opacity-50 mb-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-6 bg-bg-surface/50">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-primary opacity-30 mb-4">
               <path d="M3 3v18h18" />
               <path d="M18 9l-5 5-2-2-4 4" />
             </svg>
-            <p className="text-body m-0 mb-1 font-medium">No data for this time range</p>
-            <p className="text-body-small text-muted m-0">Try a longer range or check back later</p>
+            <p className="text-body m-0 mb-1 font-semibold text-muted">No data available</p>
+            <p className="text-caption text-muted m-0">Try adjusting the time range</p>
           </div>
         ) : (
           children
@@ -107,15 +82,10 @@ const ChartCard = ({
       </div>
 
       {/* Footer */}
-      {!isStale && (
-        <div 
-          className="px-6 py-3 border-t flex justify-between items-center" 
-          style={{ borderColor: 'var(--border)', backgroundColor: 'var(--white)' }}
-        >
-          <span className="text-caption text-muted">{sourceText}</span>
-          <span className="text-caption text-muted">Updated just now</span>
-        </div>
-      )}
+      <div className="px-6 py-3 border-t bg-deep/30 flex justify-between items-center" style={{ borderColor: 'var(--border-muted)' }}>
+        <span className="text-caption text-muted font-mono">{sourceText}</span>
+        <span className="text-caption text-muted">Live</span>
+      </div>
     </div>
   );
 };
