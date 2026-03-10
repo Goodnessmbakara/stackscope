@@ -7,6 +7,38 @@ import securityAsset from '../assets/bento_security.png';
 
 const Landing = () => {
   const navigate = useNavigate();
+  const [email, setEmail] = React.useState('');
+  const [status, setStatus] = React.useState('idle'); // idle | loading | success | error
+
+  const handleWaitlistSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !email.includes('@')) return;
+
+    setStatus('loading');
+
+    const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSer7YS8gTggn2bKLyH5NU_Dgnyy5CTru7_rDi6ak5zMuyFUAA/formResponse';
+    const formData = new FormData();
+    formData.append('entry.2136682838', email);
+
+    try {
+      await fetch(FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+      setStatus('success');
+      setEmail('');
+    } catch (error) {
+      console.error('Waitlist submission error:', error);
+      setStatus('error');
+    }
+  };
+
+  const scrollToWaitlist = (e) => {
+    e.preventDefault();
+    const el = document.getElementById('waitlist-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="landing-page bg-bg-deep min-h-screen text-white selection:bg-primary selection:text-deep overflow-x-hidden relative">
@@ -32,10 +64,9 @@ const Landing = () => {
           <div className="flex items-center gap-3">
             {/* Desktop CTA */}
             <a 
-              href="https://docs.google.com/forms/d/e/1FAIpQLSer7YS8gTggn2bKLyH5NU_Dgnyy5CTru7_rDi6ak5zMuyFUAA/viewform?usp=publish-editor"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex group items-center gap-2 btn-primary px-5 py-2.5 text-sm shrink-0"
+              href="#waitlist-section"
+              onClick={scrollToWaitlist}
+              className="hidden md:flex group items-center gap-2 bg-white/5 border border-white/10 hover:bg-white/10 rounded-xl px-5 py-2.5 text-sm shrink-0 transition-all font-medium text-white"
             >
               Join Waitlist
               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -43,10 +74,9 @@ const Landing = () => {
 
             {/* Mobile — compact icon button */}
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSer7YS8gTggn2bKLyH5NU_Dgnyy5CTru7_rDi6ak5zMuyFUAA/viewform?usp=publish-editor"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex md:hidden items-center gap-1.5 bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl shrink-0 active:scale-95 transition-transform"
+              href="#waitlist-section"
+              onClick={scrollToWaitlist}
+              className="flex md:hidden items-center gap-1.5 bg-white/5 border border-white/10 text-white text-xs font-bold px-4 py-2 rounded-xl shrink-0 active:scale-95 transition-transform"
             >
               Join <ChevronRight size={13} />
             </a>
@@ -161,7 +191,7 @@ const Landing = () => {
       </section>
 
       {/* Waitlist Section */}
-      <section className="relative py-24 px-6 overflow-hidden">
+      <section id="waitlist-section" className="relative py-24 px-6 overflow-hidden scroll-mt-20">
         <div className="absolute inset-0 bg-primary/5 blur-[120px] rounded-full translate-y-1/2 -z-10" />
         <div className="max-w-4xl mx-auto">
           <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-8 md:p-16 text-center relative overflow-hidden group shadow-2xl">
@@ -182,15 +212,35 @@ const Landing = () => {
                 Join our private beta to access institutional-grade Bitcoin L2 analytics, advanced sBTC monitoring, and high-throughput data APIs.
               </p>
               
-              <a 
-                href="https://docs.google.com/forms/d/e/1FAIpQLSer7YS8gTggn2bKLyH5NU_Dgnyy5CTru7_rDi6ak5zMuyFUAA/viewform?usp=publish-editor" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="btn-primary text-lg px-10 py-4 shadow-xl shadow-primary/20 rounded-2xl flex items-center gap-2 group/btn"
-              >
-                Join Early Access
-                <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />
-              </a>
+              {status === 'success' ? (
+                <div className="bg-success/10 border border-success/20 rounded-2xl p-8 animate-fade-in">
+                  <h3 className="text-2xl font-bold text-success mb-2">You're on the list!</h3>
+                  <p className="text-muted">We'll reach out soon with your invitation.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleWaitlistSubmit} className="w-full max-w-md flex flex-col sm:flex-row gap-3">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email address"
+                    required
+                    className="flex-1 bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder:text-muted/50 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                  />
+                  <button 
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="btn-primary px-8 py-4 shadow-xl shadow-primary/20 rounded-2xl flex items-center justify-center gap-2 group/btn disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {status === 'loading' ? 'Joining...' : 'Join Waitlist'}
+                    {status !== 'loading' && <ArrowRight size={20} className="group-hover/btn:translate-x-1 transition-transform" />}
+                  </button>
+                </form>
+              )}
+              
+              {status === 'error' && (
+                <p className="mt-4 text-xs text-red-400 font-medium">Something went wrong. Please try again.</p>
+              )}
               
               <p className="mt-8 text-[11px] text-muted-lighter font-medium uppercase tracking-widest opacity-50">
                 Institutional & Developer access only
