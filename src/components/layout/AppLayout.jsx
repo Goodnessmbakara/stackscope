@@ -24,7 +24,10 @@ const AppLayout = ({ children }) => {
   }, []);
 
   return (
-    <div className="app-layout min-h-screen flex bg-bg-deep text-text-primary">
+    <div className="app-layout min-h-screen flex text-text-primary bg-bg-deep relative">
+      <div className="fixed inset-0 bg-cryptic-grid pointer-events-none z-0 opacity-40 mix-blend-screen" />
+      <div className="fixed inset-0 chain-overlay pointer-events-none z-0 opacity-20 mix-blend-screen" />
+      
       {/* Desktop/Tablet Sidebar */}
       {!isMobile && (
         <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />

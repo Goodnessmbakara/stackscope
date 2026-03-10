@@ -91,11 +91,11 @@ const Overview = () => {
       {/* Header Area */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            <span className="text-[10px] font-bold text-muted uppercase tracking-[0.2em]">Network Status: Operational</span>
+          <div className="flex items-center gap-2 mb-2">
+            <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+            <span className="text-[11px] font-bold text-muted uppercase tracking-[0.2em]">Network Status: Operational</span>
           </div>
-          <h1 className="heading-1 m-0">Ecosystem Overview</h1>
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter m-0 bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">Ecosystem Overview</h1>
         </div>
         <div className="flex items-center gap-2 text-muted text-xs font-mono bg-bg-surface px-3 py-1.5 rounded-lg border border-border-muted">
           <Activity size={14} className="text-primary" />
@@ -201,11 +201,12 @@ const Overview = () => {
         </div>
 
         {/* 5. Activity Feed Sidebar */}
-        <div className="hidden xl:flex flex-col w-[300px] shrink-0 border-l border-border-muted pl-6">
+        <div className="hidden xl:flex flex-col w-[300px] shrink-0 border-l border-border-muted/50 pl-6 relative">
+          <div className="absolute top-20 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -z-10 pointer-events-none" />
           <div className="sticky top-6 flex flex-col gap-6">
-            <div className="bg-bg-surface rounded-2xl border border-border-muted overflow-hidden shadow-2xl">
-              <div className="p-5 border-b border-border-muted bg-bg-deep/50 flex items-center justify-between">
-                <h3 className="text-sm font-bold m-0 text-white flex items-center gap-2">
+            <div className="bg-bg-surface/60 backdrop-blur-md rounded-2xl border border-border-muted overflow-hidden shadow-2xl transition-all duration-300 hover:border-border-bright">
+              <div className="p-5 border-b border-border-muted bg-deep/40 flex items-center justify-between">
+                <h3 className="text-sm font-bold m-0 text-white flex items-center gap-2 tracking-wide">
                   <Activity size={16} className="text-primary" />
                   Live Event Feed
                 </h3>

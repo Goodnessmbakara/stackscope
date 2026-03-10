@@ -128,15 +128,15 @@
   }
 
   .stat-card {
-    @apply bg-bg-surface border border-border-muted rounded-xl p-6 transition-all duration-300;
+    @apply bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-xl p-6 transition-all duration-300;
   }
 
   .stat-card:hover {
-    @apply border-border-bright bg-bg-surface-lighter translate-y-[-4px] shadow-lg;
+    @apply border-border-bright bg-bg-surface/80 translate-y-[-4px] shadow-lg;
   }
 
   .chart-card {
-    @apply bg-bg-surface border border-border-muted rounded-xl p-6 relative overflow-hidden;
+    @apply bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-xl p-6 relative overflow-hidden transition-all duration-300;
   }
 
   .sidebar {
