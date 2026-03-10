@@ -40,21 +40,21 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+      <section className="relative pt-48 pb-24 px-6 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl aspect-square bg-primary/10 rounded-full blur-[120px] -z-10 translate-y-[-50%]" />
         
-        <div className="max-w-4xl mx-auto text-center animate-fade-in">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-lighter/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-widest mb-8 animate-bounce-subtle">
+        <div className="max-w-5xl mx-auto text-center animate-fade-in flex flex-col items-center">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-lighter/10 border border-primary/20 text-primary text-[11px] font-bold uppercase tracking-widest mb-12 animate-bounce-subtle">
             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Live on Stacks Mainnet
           </div>
           
-          <h1 className="heading-1 leading-[1.1] mb-8 bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent">
-            The Intelligence Layer <br/> for Bitcoin DeFi
+          <h1 className="heading-display mb-10 leading-[1.05]">
+            The Intelligence Layer <br className="hidden md:block" /> for Bitcoin DeFi
           </h1>
           
-          <p className="text-xl text-muted leading-relaxed mb-12 max-w-2xl mx-auto">
-            Experience real-time on-chain analytics, TVL flows, and sBTC insights. Radically transparent data for the next generation of finance.
+          <p className="text-xl text-muted leading-relaxed mb-16 max-w-3xl mx-auto">
+            Experience real-time on-chain analytics, TVL flows, and sBTC insights. <br className="hidden lg:block" /> Radically transparent data for the next generation of finance.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
