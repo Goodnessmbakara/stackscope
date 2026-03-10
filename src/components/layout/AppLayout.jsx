@@ -55,20 +55,44 @@ const AppLayout = ({ children }) => {
       >
         <TopBar isMobile={isMobile} toggleSidebar={() => setMobileSidebarOpen(true)} />
         
-        <main className="content-scroll flex-1 overflow-x-hidden p-6 md:p-8">
+        <main className={`content-scroll flex-1 overflow-x-hidden p-4 md:p-6 lg:p-8 ${isMobile ? 'pb-20' : ''}`}>
           <div className="container mx-auto max-w-[1440px]">
             {children || <Outlet />}
           </div>
         </main>
       </div>
       
-      {/* Mobile Bottom Tab Bar */}
+      {/* Mobile Bottom Navigation Bar */}
       {isMobile && (
-        <div className="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center bg-bg-surface border-t border-border-muted z-40 px-4 pb-safe">
-           <div className="text-[10px] font-bold text-primary uppercase tracking-widest">Analytics</div>
-           <div className="text-[10px] font-bold text-muted uppercase tracking-widest">Search</div>
-           <div className="text-[10px] font-bold text-muted uppercase tracking-widest">Docs</div>
-        </div>
+        <nav className="fixed bottom-0 left-0 right-0 h-16 bg-bg-surface/95 backdrop-blur-xl border-t border-border-muted z-50 safe-area-inset-bottom">
+          <div className="flex items-center justify-around h-full px-2">
+            <a href="/" className="flex flex-col items-center justify-center gap-1 flex-1 py-2 px-3 rounded-lg transition-colors active:bg-white/5 min-w-[60px]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span className="text-[10px] font-bold text-primary uppercase tracking-wider">Overview</span>
+            </a>
+            <a href="/sbtc" className="flex flex-col items-center justify-center gap-1 flex-1 py-2 px-3 rounded-lg transition-colors active:bg-white/5 min-w-[60px]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted">
+                <circle cx="12" cy="12" r="8"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span className="text-[10px] font-bold text-muted uppercase tracking-wider">sBTC</span>
+            </a>
+            <button onClick={toggleSidebar} className="flex flex-col items-center justify-center gap-1 flex-1 py-2 px-3 rounded-lg transition-colors active:bg-white/5 min-w-[60px]">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-muted">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+              <span className="text-[10px] font-bold text-muted uppercase tracking-wider">Menu</span>
+            </button>
+          </div>
+        </nav>
       )}
     </div>
   );

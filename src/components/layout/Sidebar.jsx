@@ -44,20 +44,29 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
     >
       {/* Header / Branding */}
       <div className="flex items-center justify-between px-4" style={{ height: '72px' }}>
-        <div className="flex items-center gap-3 overflow-hidden">
-          {!isCollapsed && (
-            <span className="text-lg font-bold tracking-tight text-white whitespace-nowrap animate-fade-in">
-              Stack<span className="text-primary">Scope</span>
-            </span>
-          )}
-        </div>
-        {!isCollapsed && (
-          <button 
-            onClick={() => setIsCollapsed(true)}
-            className="text-muted hover:text-white transition-colors p-1.5 rounded-md hover:bg-bg-surface-lighter"
+        {isCollapsed ? (
+          <button
+            onClick={() => setIsCollapsed(false)}
+            className="w-full flex items-center justify-center text-primary hover:text-white transition-colors p-2 rounded-lg hover:bg-bg-surface-lighter cursor-pointer group"
+            title="Expand sidebar"
           >
-            <ChevronLeft size={18} />
+            <ChevronRight size={20} className="group-hover:scale-110 transition-transform" />
           </button>
+        ) : (
+          <>
+            <div className="flex items-center gap-3 overflow-hidden">
+              <span className="text-lg font-bold tracking-tight text-white whitespace-nowrap animate-fade-in">
+                Stack<span className="text-primary">Scope</span>
+              </span>
+            </div>
+            <button
+              onClick={() => setIsCollapsed(true)}
+              className="text-muted hover:text-white transition-colors p-1.5 rounded-md hover:bg-bg-surface-lighter cursor-pointer"
+              title="Collapse sidebar"
+            >
+              <ChevronLeft size={18} />
+            </button>
+          </>
         )}
       </div>
 
@@ -70,13 +79,19 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           <NavLink
             key={item.name}
             to={item.path}
+            title={isCollapsed ? item.name : ''}
             className={({ isActive }) => `
-              nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group
+              nav-item flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} px-3 py-2.5 rounded-lg transition-all duration-200 group relative
               ${isActive ? 'bg-primary text-bg-deep font-bold shadow-lg shadow-primary/20' : 'text-muted hover:bg-bg-surface-lighter hover:text-white'}
             `}
           >
             <item.icon size={20} className="flex-shrink-0" />
             {!isCollapsed && <span className="text-body font-medium whitespace-nowrap">{item.name}</span>}
+            {isCollapsed && (
+              <span className="absolute left-full ml-2 px-2 py-1 bg-bg-deep border border-border-muted rounded text-xs text-white whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none">
+                {item.name}
+              </span>
+            )}
           </NavLink>
         ))}
 
@@ -89,8 +104,9 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           <NavLink
             key={item.name}
             to={item.path}
+            title={isCollapsed ? item.name : ''}
             className={({ isActive }) => `
-              nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200
+              nav-item flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} px-3 py-2 rounded-lg transition-all duration-200 group relative
               ${isActive ? 'bg-bg-surface-lighter text-white' : 'text-muted hover:bg-bg-surface-lighter/50 hover:text-white'}
             `}
           >
@@ -107,6 +123,16 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                     )}
                   </div>
                 )}
+                {isCollapsed && (
+                  <span className="absolute left-full ml-2 px-2 py-1 bg-bg-deep border border-border-muted rounded text-xs text-white whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none flex items-center gap-2">
+                    {item.name}
+                    {item.badge && (
+                      <span className="text-[9px] bg-primary/10 text-primary border border-primary/20 px-1.5 py-0.5 rounded font-bold">
+                        {item.badge}
+                      </span>
+                    )}
+                  </span>
+                )}
               </>
             )}
           </NavLink>
@@ -119,21 +145,20 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           <NavLink
             key={item.name}
             to={item.path}
-            className="flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-muted hover:bg-bg-surface-lighter/50 hover:text-white"
+            title={isCollapsed ? item.name : ''}
+            className={`flex items-center ${isCollapsed ? 'justify-center' : 'gap-3'} px-3 py-2 rounded-lg transition-colors text-muted hover:bg-bg-surface-lighter/50 hover:text-white group relative`}
           >
             <item.icon size={16} className="flex-shrink-0" />
             {!isCollapsed && <span className="text-body-small font-medium">{item.name}</span>}
+            {isCollapsed && (
+              <span className="absolute left-full ml-2 px-2 py-1 bg-bg-deep border border-border-muted rounded text-xs text-white whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 pointer-events-none">
+                {item.name}
+              </span>
+            )}
           </NavLink>
         ))}
-        
-        {isCollapsed ? (
-          <button 
-            onClick={() => setIsCollapsed(false)}
-            className="flex items-center justify-center p-2 mt-2 text-primary hover:text-white transition-colors"
-          >
-            <ChevronRight size={20} />
-          </button>
-        ) : (
+
+        {!isCollapsed && (
           <div className="flex items-center justify-between mt-4 px-3 py-2 bg-bg-surface/30 rounded-lg border border-border-muted">
             <div className="flex items-center gap-2">
               <Github size={14} className="text-muted" />

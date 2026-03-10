@@ -87,34 +87,38 @@ const feedEvents = [
 
 const Overview = () => {
   return (
-    <div className="flex flex-col gap-6 pb-12 w-full animate-fade-in">
+    <div className="flex flex-col gap-4 md:gap-6 pb-4 md:pb-12 w-full animate-fade-in">
       {/* Header Area */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-2">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 md:gap-4 mb-1 md:mb-2">
         <div>
-          <div className="flex items-center gap-2 mb-3">
-            <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
-            <span className="text-[11px] font-bold text-success uppercase tracking-[0.2em]">Network Operational</span>
-            <div className="w-px h-3 bg-border-muted mx-1" />
-            <span className="text-[11px] text-muted font-mono">Last updated: 2s ago</span>
+          <div className="flex items-center gap-2 mb-2 md:mb-3 flex-wrap">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-success animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
+              <span className="text-[10px] md:text-[11px] font-bold text-success uppercase tracking-[0.15em] md:tracking-[0.2em]">Network Operational</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-2">
+              <div className="w-px h-3 bg-border-muted" />
+              <span className="text-[10px] md:text-[11px] text-muted font-mono">Last updated: 2s ago</span>
+            </div>
           </div>
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter m-0 bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tighter m-0 bg-gradient-to-br from-white to-white/60 bg-clip-text text-transparent leading-tight">
             Ecosystem Overview
           </h1>
-          <p className="text-sm text-muted mt-2 m-0 max-w-2xl">
+          <p className="text-xs md:text-sm text-muted mt-2 m-0 max-w-2xl leading-relaxed">
             Comprehensive real-time analytics for the Stacks Bitcoin L2 ecosystem. Tracking TVL, sBTC adoption, developer activity, and network health.
           </p>
         </div>
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 text-muted text-xs font-mono bg-bg-surface px-4 py-2 rounded-lg border border-border-muted">
+        <div className="flex flex-col gap-2 w-full md:w-auto">
+          <div className="hidden sm:flex items-center gap-2 text-muted text-xs font-mono bg-bg-surface px-3 md:px-4 py-2 rounded-lg border border-border-muted">
             <Activity size={14} className="text-primary" />
-            <span>Live data from Hiro API + Ortege ETL</span>
+            <span className="text-[11px] md:text-xs">Live data from Hiro API + Ortege ETL</span>
           </div>
           <div className="flex items-center gap-2">
-            <button className="text-xs font-semibold text-muted hover:text-primary transition-colors px-3 py-1.5 bg-bg-surface/50 rounded-md border border-border-muted hover:border-primary/30 cursor-pointer">
-              Export Data
+            <button className="text-[11px] md:text-xs font-semibold text-muted hover:text-primary active:text-primary transition-colors px-3 py-2 bg-bg-surface/50 rounded-md border border-border-muted hover:border-primary/30 active:border-primary/30 cursor-pointer min-h-[44px] flex-1 md:flex-none">
+              Export
             </button>
-            <button className="text-xs font-semibold text-muted hover:text-primary transition-colors px-3 py-1.5 bg-bg-surface/50 rounded-md border border-border-muted hover:border-primary/30 cursor-pointer">
-              Embed Widget
+            <button className="text-[11px] md:text-xs font-semibold text-muted hover:text-primary active:text-primary transition-colors px-3 py-2 bg-bg-surface/50 rounded-md border border-border-muted hover:border-primary/30 active:border-primary/30 cursor-pointer min-h-[44px] flex-1 md:flex-none">
+              Embed
             </button>
           </div>
         </div>
@@ -167,35 +171,35 @@ const Overview = () => {
       </div>
 
       {/* Quick Insights - Bloomberg Style */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl border border-primary/20 p-6 backdrop-blur-md">
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-lg bg-success/20 border border-success/30 flex items-center justify-center shrink-0">
-            <ArrowUpRight size={16} className="text-success" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl md:rounded-2xl border border-primary/20 p-4 md:p-6 backdrop-blur-md">
+        <div className="flex items-start gap-3 p-3 md:p-0 rounded-lg md:rounded-none hover:bg-white/5 md:hover:bg-transparent transition-colors cursor-pointer active:bg-white/10 md:active:bg-transparent">
+          <div className="w-10 h-10 md:w-8 md:h-8 rounded-lg bg-success/20 border border-success/30 flex items-center justify-center shrink-0">
+            <ArrowUpRight size={18} className="text-success md:w-4 md:h-4" />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">Top Performer</p>
-            <p className="text-sm font-bold text-white m-0">StackingDAO +22.1%</p>
-            <p className="text-xs text-muted m-0 mt-1">Leading 7-day TVL growth</p>
+            <p className="text-sm font-bold text-white m-0 truncate">StackingDAO +22.1%</p>
+            <p className="text-xs text-muted m-0 mt-1 leading-tight">Leading 7-day TVL growth</p>
           </div>
         </div>
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-lg bg-secondary/20 border border-secondary/30 flex items-center justify-center shrink-0">
-            <Zap size={16} className="text-secondary" />
+        <div className="flex items-start gap-3 p-3 md:p-0 rounded-lg md:rounded-none hover:bg-white/5 md:hover:bg-transparent transition-colors cursor-pointer active:bg-white/10 md:active:bg-transparent">
+          <div className="w-10 h-10 md:w-8 md:h-8 rounded-lg bg-secondary/20 border border-secondary/30 flex items-center justify-center shrink-0">
+            <Zap size={18} className="text-secondary md:w-4 md:h-4" />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">sBTC Momentum</p>
-            <p className="text-sm font-bold text-white m-0">+12.4% Supply Growth</p>
-            <p className="text-xs text-muted m-0 mt-1">Strong adoption this week</p>
+            <p className="text-sm font-bold text-white m-0 truncate">+12.4% Supply Growth</p>
+            <p className="text-xs text-muted m-0 mt-1 leading-tight">Strong adoption this week</p>
           </div>
         </div>
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-lg bg-cta/20 border border-cta/30 flex items-center justify-center shrink-0">
-            <Code size={16} className="text-cta" />
+        <div className="flex items-start gap-3 p-3 md:p-0 rounded-lg md:rounded-none hover:bg-white/5 md:hover:bg-transparent transition-colors cursor-pointer active:bg-white/10 md:active:bg-transparent">
+          <div className="w-10 h-10 md:w-8 md:h-8 rounded-lg bg-cta/20 border border-cta/30 flex items-center justify-center shrink-0">
+            <Code2 size={18} className="text-cta md:w-4 md:h-4" />
           </div>
-          <div>
+          <div className="flex-1 min-w-0">
             <p className="text-[10px] text-muted uppercase tracking-wider m-0 mb-1">Developer Activity</p>
-            <p className="text-sm font-bold text-white m-0">540 Contracts Deployed</p>
-            <p className="text-xs text-muted m-0 mt-1">+8.4% from last week</p>
+            <p className="text-sm font-bold text-white m-0 truncate">540 Contracts Deployed</p>
+            <p className="text-xs text-muted m-0 mt-1 leading-tight">+8.4% from last week</p>
           </div>
         </div>
       </div>
@@ -204,12 +208,12 @@ const Overview = () => {
         <div className="flex-1 flex flex-col gap-6" style={{ minWidth: 0 }}>
 
           {/* Section: Capital Flows */}
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-3">
-              <div className="w-1 h-6 bg-primary rounded-full"></div>
-              <h2 className="text-xl font-bold text-white m-0 tracking-tight">Capital Distribution</h2>
+          <div className="flex items-center justify-between mb-2 gap-2">
+            <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              <div className="w-1 h-5 md:h-6 bg-primary rounded-full shrink-0"></div>
+              <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight truncate">Capital Distribution</h2>
             </div>
-            <span className="text-xs text-muted font-mono">Across 5 major protocols</span>
+            <span className="text-[10px] md:text-xs text-muted font-mono shrink-0 hidden sm:block">Across 5 major protocols</span>
           </div>
 
           {/* 2. Main Trend Chart */}
@@ -234,12 +238,12 @@ const Overview = () => {
           </ChartCard>
 
           {/* Section: Key Metrics */}
-          <div className="flex items-center justify-between mb-2 mt-6">
-            <div className="flex items-center gap-3">
-              <div className="w-1 h-6 bg-secondary rounded-full"></div>
-              <h2 className="text-xl font-bold text-white m-0 tracking-tight">Key Performance Indicators</h2>
+          <div className="flex items-center justify-between mb-2 mt-4 md:mt-6 gap-2">
+            <div className="flex items-center gap-2 md:gap-3 min-w-0">
+              <div className="w-1 h-5 md:h-6 bg-secondary rounded-full shrink-0"></div>
+              <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight truncate">Key Performance Indicators</h2>
             </div>
-            <span className="text-xs text-muted font-mono">Real-time on-chain metrics</span>
+            <span className="text-[10px] md:text-xs text-muted font-mono shrink-0 hidden sm:block">Real-time on-chain metrics</span>
           </div>
 
           {/* 3. Metrics Grid */}
@@ -308,10 +312,10 @@ const Overview = () => {
           </div>
 
           {/* Mobile Activity Feed - Shows on small screens */}
-          <div className="xl:hidden flex flex-col gap-4 mt-6">
-            <div className="flex items-center gap-3">
-              <div className="w-1 h-6 bg-success rounded-full"></div>
-              <h2 className="text-xl font-bold text-white m-0 tracking-tight">Recent Activity</h2>
+          <div className="xl:hidden flex flex-col gap-3 md:gap-4 mt-4 md:mt-6">
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="w-1 h-5 md:h-6 bg-success rounded-full"></div>
+              <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight">Recent Activity</h2>
             </div>
             <div className="bg-bg-surface/60 backdrop-blur-md rounded-xl border border-border-muted p-4">
               <div className="flex flex-col gap-4">
@@ -339,16 +343,16 @@ const Overview = () => {
           </div>
 
           {/* Section: Protocol Performance */}
-          <div className="flex flex-col gap-4 mt-6">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-3">
-                <div className="w-1 h-6 bg-cta rounded-full"></div>
-                <div>
-                  <h2 className="text-xl font-bold text-white m-0 tracking-tight">DeFi Protocol Health</h2>
-                  <p className="text-xs text-muted m-0 mt-1">Comparative analysis of top protocols by TVL and activity</p>
+          <div className="flex flex-col gap-3 md:gap-4 mt-4 md:mt-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-3">
+              <div className="flex items-start gap-2 md:gap-3">
+                <div className="w-1 h-5 md:h-6 bg-cta rounded-full shrink-0 mt-1"></div>
+                <div className="min-w-0">
+                  <h2 className="text-base md:text-xl font-bold text-white m-0 tracking-tight">DeFi Protocol Health</h2>
+                  <p className="text-[11px] md:text-xs text-muted m-0 mt-1 leading-relaxed">Comparative analysis of top protocols by TVL and activity</p>
                 </div>
               </div>
-              <button className="text-xs font-bold text-primary hover:text-primary/80 transition-colors cursor-pointer px-4 py-2 bg-primary/5 rounded-lg hover:bg-primary/10 border border-primary/20">
+              <button className="text-[11px] md:text-xs font-bold text-primary hover:text-primary/80 active:text-primary/80 transition-colors cursor-pointer px-4 py-2.5 md:py-2 bg-primary/5 rounded-lg hover:bg-primary/10 active:bg-primary/10 border border-primary/20 min-h-[44px] md:min-h-0 shrink-0 self-start sm:self-center">
                 View All Protocols →
               </button>
             </div>
