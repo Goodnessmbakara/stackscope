@@ -385,7 +385,7 @@ const Overview = () => {
 
         {/* ── Sidebar: Network Vitals ───────────────────────────────────────── */}
         <aside className="xl:w-[360px] flex flex-col gap-6 shrink-0">
-          <div className="sticky top-6 flex flex-col gap-6">
+          <div className="sticky top-6 flex flex-col gap-6" style={{ height: 'calc(100vh - 6rem)' }}>
             
             {/* Status & Health Unified */}
             <div className="bg-bg-surface border border-border-muted rounded-2xl p-5 overflow-hidden relative">
@@ -423,7 +423,7 @@ const Overview = () => {
             </div>
 
             {/* Compact Activity Stream */}
-            <div className="bg-bg-surface border border-border-muted rounded-2xl overflow-hidden shadow-sm">
+            <div className="flex-1 flex flex-col bg-bg-surface border border-border-muted rounded-2xl overflow-hidden shadow-sm min-h-0">
               <div className="px-5 py-4 border-b border-border-muted/50 flex items-center justify-between">
                 <h3 className="text-xs font-bold text-white flex items-center gap-2">
                   <Activity size={14} className="text-primary" />
@@ -432,7 +432,7 @@ const Overview = () => {
                 <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
               </div>
               
-              <div className="px-5 py-2 divide-y divide-border-muted/30">
+              <div className="flex-1 px-5 py-2 divide-y divide-border-muted/30 overflow-y-auto custom-scrollbar">
                 {feedEvents.slice(0, 4).map((event) => (
                   <div key={event.id} className="py-4 flex gap-3 group cursor-pointer transition-all">
                     <div className="w-8 h-8 rounded-lg bg-bg-surface-lighter flex items-center justify-center shrink-0 border border-border-muted/50 group-hover:border-primary/50" style={{ color: event.color }}>
