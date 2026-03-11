@@ -161,39 +161,6 @@ const Overview = () => {
         </div>
       </div>
 
-      {/* ── Primary Highlights - Bento Grid ─────────────────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* TVL - Featured */}
-        <div className="lg:col-span-2">
-          <StatCard
-            title="TOTAL VALUE LOCKED"
-            value={stats.tvl}
-            change={stats.tvlChg}
-            isPositive={!stats.tvlChg.startsWith('-')}
-            sparklineData={generateSparkline(30, 150, 170)}
-            featured={true}
-          />
-        </div>
-        
-        {/* sBTC Supply */}
-        <StatCard
-          title="SBTC SUPPLY"
-          value={stats.sbtcSupply}
-          change={stats.sbtcChg}
-          isPositive={true}
-          sparklineData={generateSparkline(30, 400, 550)}
-        />
-
-        {/* Volume */}
-        <StatCard
-          title={`${timeFilter} VOLUME`}
-          value={stats.vol}
-          change={stats.volChg}
-          isPositive={true}
-          sparklineData={generateSparkline(30, 20, 50)}
-        />
-      </div>
-
       {/* ── Secondary Insights Row ──────────────────────────────────────────── */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-bg-surface/30 p-2 rounded-2xl border border-border-muted/50 backdrop-blur-sm">
         <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/[0.03] transition-colors cursor-default">
@@ -227,85 +194,193 @@ const Overview = () => {
         </div>
       </div>
 
+      {/* ── Primary Highlights - Bento Grid ─────────────────────────────────── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* TVL - Featured */}
+        <div className="lg:col-span-2">
+          <StatCard
+            title="TOTAL VALUE LOCKED"
+            value={stats.tvl}
+            change={stats.tvlChg}
+            isPositive={!stats.tvlChg.startsWith('-')}
+            sparklineData={generateSparkline(30, 150, 170)}
+            featured={true}
+          />
+        </div>
+        
+        {/* sBTC Supply */}
+        <StatCard
+          title="SBTC SUPPLY"
+          value={stats.sbtcSupply}
+          change={stats.sbtcChg}
+          isPositive={true}
+          sparklineData={generateSparkline(30, 400, 550)}
+        />
+
+        {/* Volume */}
+        <StatCard
+          title={`${timeFilter} VOLUME`}
+          value={stats.vol}
+          change={stats.volChg}
+          isPositive={true}
+          sparklineData={generateSparkline(30, 20, 50)}
+        />
+      </div>
+
       <div className="flex flex-col xl:flex-row gap-8">
         <div className="flex-1 flex flex-col gap-8" style={{ minWidth: 0 }}>
           
-          {/* ── Section: Market Dynamics ──────────────────────────────────────── */}
-          <section className="flex flex-col gap-4">
-            <div id="market-dynamics" className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-1.5 h-6 bg-primary rounded-full" />
-                <h2 className="text-xl font-bold text-white tracking-tight">Market Dynamics</h2>
+      {/* ── Section: Market Dynamics - Elevated Container ───────────────────── */}
+      <section className="relative">
+        <div className="absolute inset-0 bg-primary/5 blur-[100px] rounded-full translate-y-1/3 -z-10 opacity-50" />
+        
+        <div className="bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-[2.5rem] p-6 md:p-10 shadow-2xl relative overflow-hidden">
+          {/* Header Internal */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-1.5 h-6 bg-primary rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">Market Dynamics</h2>
               </div>
-              <span className="text-xs text-muted font-mono bg-bg-surface/50 px-2 py-1 rounded-md border border-border-muted/50">Aggregated Capital Flows</span>
+              <p className="text-sm text-muted opacity-60">Aggregated Capital Flows & Protocol Adoption</p>
             </div>
+            <div className="flex items-center gap-2 self-start md:self-center">
+              <span className="text-[10px] text-muted font-bold uppercase tracking-widest bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 uppercase">
+                Hiro API + Ortege ETL
+              </span>
+              <div className="flex items-center gap-1.5 px-3 py-1.5 bg-success/10 border border-success/20 rounded-lg">
+                <div className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+                <span className="text-[10px] font-bold text-success uppercase">Live</span>
+              </div>
+            </div>
+          </div>
 
-            {/* Total TVL Stacked Area Chart */}
-            <ChartCard
-              title={`TVL Distribution (${timeFilter})`}
-              metricValue="$164.2M"
-              metricChange={`+97.6% (YTD)`}
-            >
-              <ResponsiveContainer width="100%" height="100%" debounce={50}>
-                <AreaChart data={tvlData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.3} />
-                  <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} dy={10} minTickGap={30} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} tickFormatter={(val) => `$${val}M`} />
-                  <RechartsTooltip content={<HoverTooltip multiSeries={true} />} cursor={{ stroke: 'var(--color-primary)', strokeWidth: 1, strokeDasharray: '4 4' }} strokeOpacity={0.5} />
-                  <Area type="monotone" dataKey="alex" name="ALEX" stackId="1" stroke={protocolColors.alex} fill={protocolColors.alex} fillOpacity={0.6} activeDot={{ r: 4, strokeWidth: 0 }} />
-                  <Area type="monotone" dataKey="arkadiko" name="Arkadiko" stackId="1" stroke={protocolColors.arkadiko} fill={protocolColors.arkadiko} fillOpacity={0.5} />
-                  <Area type="monotone" dataKey="zest" name="Zest" stackId="1" stroke={protocolColors.zest} fill={protocolColors.zest} fillOpacity={0.4} />
-                  <Area type="monotone" dataKey="stackingdao" name="StackingDAO" stackId="1" stroke={protocolColors.stackingdao} fill={protocolColors.stackingdao} fillOpacity={0.3} />
-                  <Area type="monotone" dataKey="bitflow" name="Bitflow" stackId="1" stroke={protocolColors.bitflow} fill={protocolColors.bitflow} fillOpacity={0.2} />
-                </AreaChart>
-              </ResponsiveContainer>
-            </ChartCard>
-
-            {/* KPI Mini-Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <ChartCard title="sBTC MINT VELOCITY" metricValue="542.8 BTC" metricChange="+12.4%">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Primary TVL Area Chart */}
+            <div className="lg:col-span-2">
+              <ChartCard
+                title={`TVL Distribution (${timeFilter})`}
+                metricValue="$164.2M"
+                metricChange={`+97.6% (YTD)`}
+              >
                 <ResponsiveContainer width="100%" height="100%" debounce={50}>
-                  <AreaChart data={mintData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <XAxis dataKey="date" hide />
-                    <YAxis hide />
-                    <Area type="monotone" dataKey="value" stroke="var(--color-secondary)" fill="var(--color-secondary)" fillOpacity={0.1} strokeWidth={2} />
+                  <AreaChart data={tvlData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--border-muted)" opacity={0.3} />
+                    <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} dy={10} minTickGap={30} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: 'var(--muted)' }} tickFormatter={(val) => `$${val}M`} />
+                    <RechartsTooltip content={<HoverTooltip multiSeries={true} />} cursor={{ stroke: 'var(--color-primary)', strokeWidth: 1, strokeDasharray: '4 4' }} strokeOpacity={0.5} />
+                    <Area type="monotone" dataKey="alex" name="ALEX" stackId="1" stroke={protocolColors.alex} fill={protocolColors.alex} fillOpacity={0.6} activeDot={{ r: 4, strokeWidth: 0 }} />
+                    <Area type="monotone" dataKey="arkadiko" name="Arkadiko" stackId="1" stroke={protocolColors.arkadiko} fill={protocolColors.arkadiko} fillOpacity={0.5} />
+                    <Area type="monotone" dataKey="zest" name="Zest" stackId="1" stroke={protocolColors.zest} fill={protocolColors.zest} fillOpacity={0.4} />
+                    <Area type="monotone" dataKey="stackingdao" name="StackingDAO" stackId="1" stroke={protocolColors.stackingdao} fill={protocolColors.stackingdao} fillOpacity={0.3} />
+                    <Area type="monotone" dataKey="bitflow" name="Bitflow" stackId="1" stroke={protocolColors.bitflow} fill={protocolColors.bitflow} fillOpacity={0.2} />
                   </AreaChart>
                 </ResponsiveContainer>
               </ChartCard>
+            </div>
 
-              <ChartCard title="DEV ADOPTION" metricValue="540" metricChange="+8.4%">
-                <ResponsiveContainer width="100%" height="100%" debounce={50}>
-                  <BarChart data={devData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                    <XAxis dataKey="date" hide />
-                    <YAxis hide />
-                    <Bar dataKey="value" fill="var(--color-primary)" radius={[2, 2, 0, 0]} barSize={4} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </ChartCard>
+            {/* KPI Stack on RHS */}
+            <div className="flex flex-col gap-4 h-full">
+              {/* sBTC Mint Velocity */}
+              <div className="flex-1 bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-2xl p-5 flex flex-col gap-3 group hover:border-border-bright transition-all overflow-hidden relative" style={{ minHeight: 0 }}>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-secondary/10 blur-[40px] rounded-full -mr-8 -mt-8 pointer-events-none" />
+                <div className="relative z-10">
+                  <p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-2">sBTC Mint Velocity</p>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-2xl font-bold text-white font-mono tracking-tight">542.8 <span className="text-base text-muted font-semibold">BTC</span></span>
+                    <span className="text-xs font-bold text-success bg-success/10 px-1.5 py-0.5 rounded-md">+12.4%</span>
+                  </div>
+                </div>
+                <div className="flex-1 relative z-10" style={{ minHeight: 60 }}>
+                  <ResponsiveContainer width="100%" height="100%" debounce={50}>
+                    <AreaChart data={mintData} margin={{ top: 4, right: 0, left: -30, bottom: 0 }}>
+                      <defs>
+                        <linearGradient id="mintGrad" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="var(--color-secondary)" stopOpacity={0.3} />
+                          <stop offset="100%" stopColor="var(--color-secondary)" stopOpacity={0} />
+                        </linearGradient>
+                      </defs>
+                      <XAxis dataKey="date" hide />
+                      <YAxis hide />
+                      <Area type="monotone" dataKey="value" stroke="var(--color-secondary)" fill="url(#mintGrad)" strokeWidth={2} dot={false} />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="flex items-center justify-between pt-1 border-t border-border-muted/50 relative z-10">
+                  <span className="text-[9px] font-mono text-muted/60">Hiro API</span>
+                  <div className="flex items-center gap-1">
+                    <div className="w-1 h-1 rounded-full bg-success animate-pulse" />
+                    <span className="text-[9px] text-success font-bold">Live</span>
+                  </div>
+                </div>
+              </div>
 
-              <ChartCard title="TX DIVERSITY" metricValue="100K+" metricChange="Daily Ops">
-                <ResponsiveContainer width="100%" height="100%" debounce={50}>
-                  <PieChart>
-                    <Pie data={txTypeData} cx="50%" cy="50%" innerRadius={35} outerRadius={50} paddingAngle={4} dataKey="value" stroke="none">
+              {/* Dev Adoption */}
+              <div className="flex-1 bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-2xl p-5 flex flex-col gap-3 group hover:border-border-bright transition-all overflow-hidden relative" style={{ minHeight: 0 }}>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 blur-[40px] rounded-full -mr-8 -mt-8 pointer-events-none" />
+                <div className="relative z-10">
+                  <p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-2">Dev Adoption</p>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-2xl font-bold text-white font-mono tracking-tight">540 <span className="text-base text-muted font-semibold">contracts</span></span>
+                    <span className="text-xs font-bold text-success bg-success/10 px-1.5 py-0.5 rounded-md">+8.4%</span>
+                  </div>
+                </div>
+                <div className="flex-1 relative z-10" style={{ minHeight: 60 }}>
+                  <ResponsiveContainer width="100%" height="100%" debounce={50}>
+                    <BarChart data={devData} margin={{ top: 4, right: 0, left: -30, bottom: 0 }}>
+                      <XAxis dataKey="date" hide />
+                      <YAxis hide />
+                      <Bar dataKey="value" fill="var(--color-primary)" radius={[3, 3, 0, 0]} barSize={5} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="flex items-center justify-between pt-1 border-t border-border-muted/50 relative z-10">
+                  <span className="text-[9px] font-mono text-muted/60">Ortege ETL</span>
+                  <div className="flex items-center gap-1">
+                    <div className="w-1 h-1 rounded-full bg-success animate-pulse" />
+                    <span className="text-[9px] text-success font-bold">Live</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* TX Diversity */}
+              <div className="flex-1 bg-bg-surface/60 backdrop-blur-md border border-border-muted rounded-2xl p-5 flex flex-col gap-3 group hover:border-border-bright transition-all overflow-hidden relative" style={{ minHeight: 0 }}>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 blur-[40px] rounded-full -mr-8 -mt-8 pointer-events-none" />
+                <div className="relative z-10">
+                  <p className="text-[10px] font-bold text-muted uppercase tracking-widest mb-2">TX Diversity</p>
+                  <div className="flex items-baseline gap-2 mb-1">
+                    <span className="text-2xl font-bold text-white font-mono tracking-tight">100K+</span>
+                    <span className="text-xs font-bold text-muted bg-white/5 px-1.5 py-0.5 rounded-md">Daily Ops</span>
+                  </div>
+                </div>
+                <div className="flex-1 relative z-10 flex items-center justify-center" style={{ minHeight: 60 }}>
+                  <PieChart width={120} height={80}>
+                    <Pie data={txTypeData} cx={60} cy={40} innerRadius={28} outerRadius={38} paddingAngle={3} dataKey="value" stroke="none">
                       {txTypeData.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)}
                     </Pie>
                   </PieChart>
-                </ResponsiveContainer>
-              </ChartCard>
-            </div>
-          </section>
-
-          {/* ── Section: Protocol Performance ────────────────────────────────── */}
-          <section className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-1.5 h-6 bg-orange-400 rounded-full" />
-                <h2 className="text-xl font-bold text-white tracking-tight">Ecosystem Rankings</h2>
+                  <div className="flex flex-col gap-1 ml-2">
+                    {txTypeData.slice(0, 3).map(t => (
+                      <div key={t.name} className="flex items-center gap-1.5">
+                        <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: t.color }} />
+                        <span className="text-[9px] text-muted font-mono">{t.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex items-center justify-between pt-1 border-t border-border-muted/50 relative z-10">
+                  <span className="text-[9px] font-mono text-muted/60">Hiro API</span>
+                  <div className="flex items-center gap-1">
+                    <div className="w-1 h-1 rounded-full bg-success animate-pulse" />
+                    <span className="text-[9px] text-success font-bold">Live</span>
+                  </div>
+                </div>
               </div>
-              <button className="text-[10px] font-bold text-primary hover:text-white transition-colors bg-primary/10 px-3 py-1.5 rounded-lg border border-primary/20">View Leaderboard</button>
             </div>
-            <DataTable columns={tableColumns} data={protocolTableData} />
-          </section>
+          </div>
+        </div>
+      </section>
+
         </div>
 
         {/* ── Sidebar: Network Vitals ───────────────────────────────────────── */}
@@ -381,6 +456,15 @@ const Overview = () => {
           </div>
         </aside>
       </div>
+
+      {/* ── Section: Ecosystem Rankings - Full Width ─────────────────────────── */}
+      <section className="flex flex-col gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-6 bg-orange-400 rounded-full" />
+          <h2 className="text-xl font-bold text-white tracking-tight">Ecosystem Rankings</h2>
+        </div>
+        <DataTable columns={tableColumns} data={protocolTableData} />
+      </section>
     </div>
   );
 };
